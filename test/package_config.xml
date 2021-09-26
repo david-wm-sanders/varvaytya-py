@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package
+  name="ENLISTD_TEST"
+  description="profile magic"
+  show_in_campaign_menu="0" show_in_campaigns="0" show_in_quick_match_mods="0"
+  campaign_entry_script="start_enlistd_invasion.as">
+
+  <campaign_options
+    faction="1" presets="1"
+    friendly_capacity="1" enemy_capacity="1"
+    friendly_accuracy="1" enemy_accuracy="1"
+    xp_multiplier="1" rp_multiplier="1" />
+
+  <!-- <overlay path="media/packages/invasion" /> -->
+</package>
