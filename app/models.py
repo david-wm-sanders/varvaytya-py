@@ -9,8 +9,10 @@ class Realm(db.Model):
 
 class Player(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    hash = db.Column(db.Integer, index=True, unique=True)
-    username = db.Column(db.String(32), index=True, unique=True)
+    hash = db.Column(db.Integer, index=True)
+    username = db.Column(db.String(32), index=True)
+    realm = db.Column(db.Integer, db.ForeignKey("realm.id"))
+    sid = db.Column(db.Integer, index=True)
     rid = db.Column(db.String(64))
 
     def __repr__(self):
