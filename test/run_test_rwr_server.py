@@ -67,10 +67,10 @@ if __name__ == '__main__':
     path_to_package = f"media/packages/{TEST_PKG_DIR.name}"
     print(f"Starting RWR server for '{path_to_package}' package...")
     rwr_serv_args = [f"{RWR_SERV}"]
+    # rwr_serv_args = [f"{RWR_SERV}", "verbose"]
     # rwr_serv = subprocess.run(rwr_serv_args, cwd=RWR_ROOT.absolute(), encoding="utf-8")
     rwr_serv = subprocess.Popen(rwr_serv_args, cwd=RWR_ROOT.absolute(), encoding="utf-8",
                                 stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
-
     try:
         # wait for the first prompt
         wait_for_server_load(rwr_serv)

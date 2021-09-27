@@ -36,7 +36,7 @@ void main(dictionary@ inputData) {
     settings.m_testingToolsEnabled = true;
 
 
-    array<string> overlays = { "media/packages/invasion", "media/packages/_enlist_test_pkg" };
+    array<string> overlays = { "media/packages/invasion", "media/packages/_enlistd_test_pkg" };
     settings.m_overlayPaths = overlays;
 
     // HACK: [] don't automatically start a server for  testing

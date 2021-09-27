@@ -12,4 +12,5 @@
     xp_multiplier="1" rp_multiplier="1" />
 
   <!-- <overlay path="media/packages/invasion" /> -->
+  <!-- <overlay path="media/packages/_enlistd_test_pkg" /> -->
 </package>
