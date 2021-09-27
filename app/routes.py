@@ -16,6 +16,7 @@ def index():
 #     </stats>
 # </profile>"""
 
+
 @app.route("/get_profile.php")
 def get_profile():
     print(f"get_profile req args: {request.args}")
@@ -26,6 +27,10 @@ def get_profile():
     return f"""<data ok="1">{pt}</data>\n"""  # works!!! the \n terminator is essential
 
 
-@app.route("/set_profile.php")
+@app.route("/set_profile.php", methods=["POST"])
 def set_profile():
-    return "set"
+    print(f"set_profile req args: {request.args}")
+    data = next(request.form.items())[0]
+    print(data)
+    return ""
+

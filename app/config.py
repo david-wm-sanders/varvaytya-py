@@ -17,7 +17,7 @@ class Config:
         raise ConfigurationError("No 'SECRET_KEY' set")
 
     # Load DATABASE_URI from environment or use a sqlite db if environment variable is not set
-    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI") or f"sqlite:///{APP_DIR / 'app.db'}"
+    SQLALCHEMY_DATABASE_URI = os.environ.get("DATABASE_URI") or f"sqlite:///{APP_DIR / 'profiles.db'}"
 
     # Disable app signalling on db changes
     SQLALCHEMY_TRACK_MODIFICATIONS = False
