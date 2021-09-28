@@ -1,8 +1,10 @@
+import xml.etree.ElementTree as XmlET
+
+from sqlalchemy.orm.exc import NoResultFound
+
 from flask import request, abort
 from app import app, db
 from app.models import Realm, Player
-
-from sqlalchemy.orm.exc import NoResultFound
 
 
 @app.route("/")
@@ -69,6 +71,7 @@ def get_profile():
         player = Player.query.filter_by(hash=hash_, realm_id=realm_id).one()
     except NoResultFound as e:
         # if no player, create player and return initialisation profile to game server
+        print(f"Creating new player (hash={hash_}, username='{username}' in '{realm_name}'...")
         player = Player(hash=hash_, realm_id=realm_id, username=username, rid=rid)
         db.session.add(player)
         db.session.commit()
@@ -83,7 +86,38 @@ def get_profile():
 @app.route("/set_profile.php", methods=["POST"])
 def set_profile():
     print(f"set_profile req args: {request.args}")
+
+    realm_name, realm_digest = request.args.get("realm"), request.args.get("realm_digest")
+    # check db for the specified realm name
+    try:
+        realm = Realm.query.filter_by(name=realm_name).one()
+    except NoResultFound as e:
+        # if realm doesn't exist, fail
+        print(f"set profile error: realm '{realm_name}' not in realms table")
+        # todo: is this the right form of error response here?
+        return """<data ok="0" issue="imaginary realm xd"></data>\n"""
+
+    # if realm digest is bad :eyes:, fail
+    # todo: ensure this is constant time for security reasons?
+    if realm_digest != realm.digest:
+        print(f"set profile error: bad realm digest '{realm_digest}")
+        return """<data ok="0" issue="indigestible"></data>\n"""
+
     data = next(request.form.items())[0]
-    print(data)
+    data_xml = XmlET.fromstring(data)
+    players = data_xml.findall("./player")
+    # todo: check to make sure we have some data here
+    # print(f"{players=}")
+    for player in players:
+        hash_, rid = player.attrib["hash"], player.attrib["rid"]
+        person = player.find("person")
+        # print(f"{person=}")
+        # todo: convert these xml string attributes into their expected types
+        max_auth = person.attrib.get("max_authority_reached", None)
+        authority = person.attrib.get("authority", None)
+        job_points = person.attrib.get("job_points", None)
+        faction = person.attrib.get("faction", None)
+
+    # print(data)
     return ""
 
