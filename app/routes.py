@@ -1,30 +1,83 @@
 from flask import request, abort
-from app import app
+from app import app, db
+from app.models import Realm, Player
+
+from sqlalchemy.orm.exc import NoResultFound
 
 
 @app.route("/")
 @app.route("/index")
 def index():
+    # todo: make it beautiful
     print(f"index request args: {request.args}")
     return "index"
-    # abort(404)
-
-#     pa = """<profile game_version="144" username="MR. BANG" digest="" sid="53219938" rid="559FC7A6561CFAFD47DA04470E84D681B54652FCF30F728F27FB47A2AEF3F2BA" squad_tag="" color="1 1 1 0">
-#     <stats kills="0" deaths="0" time_played="64.000000" player_kills="0" teamkills="0" longest_kill_streak="0" targets_destroyed="0" vehicles_destroyed="0" soldiers_healed="0" times_got_healed="0" distance_moved="127.977203" shots_fired="2" throwables_thrown="0" rank_progression="0.000000">
-#         <monitor name="kill combo" />
-#         <monitor name="death streak" longest_death_streak="0" />
-#     </stats>
-# </profile>"""
 
 
 @app.route("/get_profile.php")
 def get_profile():
     print(f"get_profile req args: {request.args}")
-    # return """<data ok="0" issue="fuck"/>"""  # gives `failed, disconnect, reason=11`
-    # return """<data ok="1"/>"""  # gives `failed, disconnect, reason=11`
-    pt = """<profile username="MR. BONG" digest="" rid="7ABBB093027BD34020852D8E3684AA01590715B981BB954000DCA04B0E0C1888"/>"""
-    # return f"""<data ok="1">{pt}</data>"""  # gives `failed, disconnect, reason=11`
-    return f"""<data ok="1">{pt}</data>\n"""  # works!!! the \n terminator is essential
+
+    # get the arguments
+    digest = request.args.get("digest")
+    hash_, username = request.args.get("hash"), request.args.get("username")
+    rid = request.args.get("rid")
+    realm_name, realm_digest = request.args.get("realm"), request.args.get("realm_digest")
+
+    # validate data at each step, if validation fails send <data ok=0> with issue:
+    # todo: add better error logging
+    # if not all required args specified, fail
+    if not (hash_ and username and rid and realm_name and realm_digest):
+        print("get profile error: missing arguments :/")
+        return """<data ok="0" issue="missing arguments :/"></data>\n"""
+    # if hash not int, fail
+    try:
+        hash_ = int(hash_)
+    except ValueError as e:
+        print(f"get profile error: hash '{hash_} cannot be converted to int")
+        return """<data ok="0" issue="hash not int"></data>\n"""
+    # if username too long, fail
+    if username and len(username) > 32:
+        print(f"get profile error: username '{username}' > 32 characters")
+        return """<data ok="0" issue="username too long"></data>\n"""
+    # if digest supplied, fail
+    if digest:
+        print("get profile error: digest unsupported")
+        return """<data ok="0" issue="rid auth only"></data>\n"""
+    # if rid not correct length, fail
+    if len(rid) != 64:
+        print(f"get profile error: rid '{rid}' not 64 characters long")
+        return """<data ok="0" issue="evil rid length"></data>\n"""
+    # todo: check the rid is a hexadecimal string
+
+    # check db for the specified realm name
+    try:
+        realm = Realm.query.filter_by(name=realm_name).one()
+    except NoResultFound as e:
+        # if realm doesn't exist, fail
+        print(f"get profile error: realm '{realm_name}' not in realms table")
+        return """<data ok="0" issue="imaginary realm xd"></data>\n"""
+
+    # if realm digest is bad :eyes:, fail
+    # todo: ensure this is constant time for security reasons?
+    if realm_digest != realm.digest:
+        print(f"get profile error: bad realm digest '{realm_digest}")
+        return """<data ok="0" issue="indigestible"></data>\n"""
+
+    # check db for player by (hash_, realm_id)
+    realm_id = realm.id
+    try:
+        player = Player.query.filter_by(hash=hash_, realm_id=realm_id).one()
+    except NoResultFound as e:
+        # if no player, create player and return initialisation profile to game server
+        player = Player(hash=hash_, realm_id=realm_id, username=username, rid=rid)
+        db.session.add(player)
+        db.session.commit()
+        # make the init profile for the game server
+        init_profile = f"""<profile username="{username}" digest="" rid="{rid}" />"""
+        return f"""<data ok="1">{init_profile}</data>\n"""
+
+    # return the player to the game server
+    # todo: return the player
 
 
 @app.route("/set_profile.php", methods=["POST"])
