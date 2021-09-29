@@ -33,12 +33,13 @@ class Player(db.Model):
     faction = db.Column(db.Integer)
     name = db.Column(db.String(32))
     alive = db.Column(db.Boolean)
-    blockx = db.Column(db.Integer)
-    blocky = db.Column(db.Integer)
     soldier_group_id = db.Column(db.Integer)
     soldier_group_name = db.Column(db.String(32))
     squad_size_setting = db.Column(db.Integer)
     squad_config_index = db.Column(db.Integer)
+    # block info may also be irrelevant? can we just return fixed "0 0"?
+    blockx = db.Column(db.Integer)
+    blocky = db.Column(db.Integer)
     # person order info:
     # suspect these aren't relevant for player characters
     # can we just not save/return them?
