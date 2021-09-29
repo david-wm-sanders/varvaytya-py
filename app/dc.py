@@ -11,7 +11,22 @@ class XmlLoadValueError(ValueError):
 
 
 @dataclasses.dataclass
-class PersonBag:
+class PersonItemDc:
+    slot: int
+    index: int
+    amount: int
+    key: str
+
+
+@dataclasses.dataclass
+class StashedItemDc:
+    class_: int
+    index: int
+    key: str
+
+
+@dataclasses.dataclass
+class PersonDc:
     max_authority_reached: float
     authority: float
     job_points: float
@@ -62,7 +77,7 @@ class PersonBag:
 
 
 @dataclasses.dataclass
-class ProfileStatsBag:
+class ProfileStatsDc:
     kills: int
     deaths: int
     time_played: int
@@ -86,6 +101,7 @@ class ProfileStatsBag:
         try:
             kills = int(x.get("kills"))
             deaths = int(x.get("deaths"))
+            print(f"tp={x.get('time_played', None)}")
             time_played = int(float(x.get("time_played")))
             player_kills = int(x.get("player_kills"))
             teamkills = int(x.get("teamkills"))
@@ -114,7 +130,7 @@ class ProfileStatsBag:
 
 
 @dataclasses.dataclass
-class ProfileBag:
+class ProfileDc:
     game_version: int
     username: str
     sid: int
@@ -122,7 +138,7 @@ class ProfileBag:
     squad_tag: str
     # todo: color should be accessible by part floats somehow? also block?
     color: str
-    stats: ProfileStatsBag
+    stats: ProfileStatsDc
 
     @classmethod
     def from_element(cls, element: xml.etree.ElementTree.Element):
@@ -146,18 +162,17 @@ class ProfileBag:
 
         # todo: load profile stats
         stats_elem = element.find("stats")
-        stats_bag = ProfileStatsBag.from_element(stats_elem)
+        stats = ProfileStatsDc.from_element(stats_elem)
 
-        return cls(game_version, username, sid, rid, squad_tag, color,
-                   stats_bag)
+        return cls(game_version, username, sid, rid, squad_tag, color, stats)
 
 
 @dataclasses.dataclass
-class PlayerBag:
+class PlayerDc:
     hash_: int
     rid: str
-    person: PersonBag
-    profile: ProfileBag
+    person: PersonDc
+    profile: ProfileDc
 
     @classmethod
     def from_element(cls, element: xml.etree.ElementTree.Element):
@@ -177,12 +192,11 @@ class PlayerBag:
             raise
 
         person_elem = element.find("person")
-        person_bag = PersonBag.from_element(person_elem)
+        person = PersonDc.from_element(person_elem)
 
         profile_elem = element.find("profile")
-        profile_bag = ProfileBag.from_element(profile_elem)
+        profile = ProfileDc.from_element(profile_elem)
 
-        return cls(hash_=hash_, rid=rid,
-                   person=person_bag, profile=profile_bag)
+        return cls(hash_=hash_, rid=rid, person=person, profile=profile)
 
 
