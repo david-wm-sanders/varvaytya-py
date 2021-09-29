@@ -11,7 +11,7 @@ class XmlLoadValueError(ValueError):
 
 
 @dataclasses.dataclass
-class PersonXml:
+class PersonBag:
     max_authority_reached: float
     authority: float
     job_points: float
@@ -43,6 +43,7 @@ class PersonXml:
             squad_size_setting = int(x.get("squad_size_setting"))
             squad_config_index = int(x.get("squad_config_index")) if "squad_config_index" in x else None
         except KeyError as e:
+            print(f"Person attribute key error: {e}")
             raise XmlLoadKeyError() from e
         except ValueError as e:
             print(f"Person attribute value error: {e}")
@@ -61,7 +62,7 @@ class PersonXml:
 
 
 @dataclasses.dataclass
-class ProfileStatsXml:
+class ProfileStatsBag:
     kills: int
     deaths: int
     time_played: int
@@ -83,8 +84,22 @@ class ProfileStatsXml:
         # get the variables stored in <stats> attributes
         x = element.attrib
         try:
-            pass
+            kills = int(x.get("kills"))
+            deaths = int(x.get("deaths"))
+            time_played = int(float(x.get("time_played")))
+            player_kills = int(x.get("player_kills"))
+            teamkills = int(x.get("teamkills"))
+            longest_kill_streak = int(x.get("longest_kill_streak"))
+            targets_destroyed = int(x.get("targets_destroyed"))
+            vehicles_destroyed = int(x.get("vehicles_destroyed"))
+            soldiers_healed = int(x.get("soldiers_healed"))
+            times_got_healed = int(x.get("times_got_healed"))
+            distance_moved = float(x.get("distance_moved"))
+            shots_fired = int(x.get("shots_fired"))
+            throwables_thrown = int(x.get("throwables_thrown"))
+            rank_progression = float(x.get("rank_progression"))
         except KeyError as e:
+            print(f"ProfileStats attribute key error: {e}")
             raise XmlLoadKeyError() from e
         except ValueError as e:
             print(f"ProfileStats attribute value error: {e}")
@@ -93,9 +108,13 @@ class ProfileStatsXml:
             print(f"ProfileStats attribute load failed: {e}")
             raise
 
+        return cls(kills, deaths, time_played, player_kills, teamkills, longest_kill_streak,
+                   targets_destroyed, vehicles_destroyed, soldiers_healed, times_got_healed,
+                   distance_moved, shots_fired, throwables_thrown, rank_progression)
+
 
 @dataclasses.dataclass
-class ProfileXml:
+class ProfileBag:
     game_version: int
     username: str
     sid: int
@@ -103,7 +122,7 @@ class ProfileXml:
     squad_tag: str
     # todo: color should be accessible by part floats somehow? also block?
     color: str
-    stats: ProfileStatsXml
+    stats: ProfileStatsBag
 
     @classmethod
     def from_element(cls, element: xml.etree.ElementTree.Element):
@@ -116,6 +135,7 @@ class ProfileXml:
             squad_tag = x.get("squad_tag")
             color = x.get("color")
         except KeyError as e:
+            print(f"Profile attribute key error: {e}")
             raise XmlLoadKeyError() from e
         except ValueError as e:
             print(f"Profile attribute value error: {e}")
@@ -126,18 +146,18 @@ class ProfileXml:
 
         # todo: load profile stats
         stats_elem = element.find("stats")
-        stats_xml = ProfileStatsXml.from_element(stats_elem)
+        stats_bag = ProfileStatsBag.from_element(stats_elem)
 
         return cls(game_version, username, sid, rid, squad_tag, color,
-                   stats_xml)
+                   stats_bag)
 
 
 @dataclasses.dataclass
-class PlayerXml:
+class PlayerBag:
     hash_: int
     rid: str
-    person: PersonXml
-    profile: ProfileXml
+    person: PersonBag
+    profile: ProfileBag
 
     @classmethod
     def from_element(cls, element: xml.etree.ElementTree.Element):
@@ -147,6 +167,7 @@ class PlayerXml:
             rid = x.get("rid")
             # todo: more validation
         except KeyError as e:
+            print(f"Player attribute key error: {e}")
             raise XmlLoadKeyError() from e
         except ValueError as e:
             print(f"Player attribute value error: {e}")
@@ -156,12 +177,12 @@ class PlayerXml:
             raise
 
         person_elem = element.find("person")
-        person_xml = PersonXml.from_element(person_elem)
+        person_bag = PersonBag.from_element(person_elem)
 
         profile_elem = element.find("profile")
-        profile_xml = ProfileXml.from_element(profile_elem)
+        profile_bag = ProfileBag.from_element(profile_elem)
 
         return cls(hash_=hash_, rid=rid,
-                   person=person_xml, profile=profile_xml)
+                   person=person_bag, profile=profile_bag)
 
 

@@ -64,6 +64,12 @@ class Player(db.Model):
     item5_amount = db.Column(db.Integer)
     item5_key = db.Column(db.String(32))
     # todo: backpack and stash stuff?
+    # backpack should be binary blob up to length 255*10 bits (318.75 bytes)
+    # stash should be binary blob up to length 300*10 bits (375 bytes)
+    # backpack blob will consume 319 bytes but 319+375 = 694 bytes max to store full backpack and full stash contents
+    # sounds alright bitstring field length could be shorter
+    # 10 bits allows for 1024 different item_ids to be stored where item_id is joined with realm_id
+    # to access the items table that contains the class, index, and key info for the item_id
     # profile stats info:
     kills = db.Column(db.Integer)
     deaths = db.Column(db.Integer)

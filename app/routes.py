@@ -5,7 +5,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from flask import request, abort
 from app import app, db
 from app.models import Realm, Player
-from app.dc import PlayerXml
+from app.dc import PlayerBag
 
 
 @app.route("/")
@@ -111,7 +111,7 @@ def set_profile():
     # todo: check to make sure we have some data here
     # print(f"{players=}")
     for player_elem in player_elements:
-        player = PlayerXml.from_element(player_elem)
+        player = PlayerBag.from_element(player_elem)
         print(player)
         print(player.person)
         # hash_, rid = player.attrib["hash"], player.attrib["rid"]
