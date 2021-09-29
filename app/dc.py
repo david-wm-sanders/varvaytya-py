@@ -17,6 +17,27 @@ class PersonItemDc:
     amount: int
     key: str
 
+    @classmethod
+    def from_element(cls, element: xml.etree.ElementTree.Element):
+        # get the variables stored in <item> attributes
+        x = element.attrib
+        try:
+            slot = int(x.get("slot"))
+            index = int(x.get("index"))
+            amount = int(x.get("amount"))
+            key = x.get("key")
+        except KeyError as e:
+            print(f"PersonItem attribute key error: {e}")
+            raise XmlLoadKeyError() from e
+        except ValueError as e:
+            print(f"PersonItem attribute value error: {e}")
+            raise XmlLoadValueError() from e
+        except Exception as e:
+            print(f"PersonItem attribute load failed: {e}")
+            raise
+
+        return cls(slot, index, amount, key)
+
 
 @dataclasses.dataclass
 class StashedItemDc:
@@ -39,6 +60,8 @@ class PersonDc:
     block: str
     squad_size_setting: int
     squad_config_index: int
+    # order: PersonOrderDc
+    items: dict[int, PersonItemDc]
 
     @classmethod
     def from_element(cls, element: xml.etree.ElementTree.Element):
@@ -68,12 +91,19 @@ class PersonDc:
             raise
 
         # todo: load the person items
+        items = {}
+        item_elements = element.findall("item")
+        # todo: validate len(item_elements) == 5
+        print(f"{item_elements=}")
+        for item_element in item_elements:
+            item = PersonItemDc.from_element(item_element)
+            items[item.slot] = item
         # todo: load the embedded order if required
         # todo: load the stash and backpack
 
         return cls(max_authority_reached, authority, job_points, faction,
                    name, version, alive, soldier_group_id, soldier_group_name,
-                   block, squad_size_setting, squad_config_index)
+                   block, squad_size_setting, squad_config_index, items)
 
 
 @dataclasses.dataclass

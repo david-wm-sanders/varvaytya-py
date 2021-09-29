@@ -1,0 +1,652 @@
+<data>
+    <player hash='193475856' digest='' rid='C553DFBBD2B803691813024A58D23C23A55DAAB3857D3B81D2004ECA091AC9AC'>
+        <person max_authority_reached="100.000000" authority="100.000000" job_points="799477.000000" faction="0"
+                name="Lee Richard" version="146" alive="1" soldier_group_id="0" soldier_group_name="default"
+                block="8 12" squad_size_setting="-1">
+            <order moving="1" target="330.413 0 676.151" class="2"/>
+            <item slot="0" index="12" amount="1" key="m16a4.weapon"/>
+            <item slot="1" index="21" amount="0" key="medikit.weapon"/>
+            <item slot="2" index="51" amount="3" key="hand_grenade.projectile"/>
+            <item slot="4" index="-1" amount="0" key=""/>
+            <item slot="5" index="45" amount="1" key="camouflage_suit.carry_item"/>
+            <stash>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="8" key="mossberg.weapon"/>
+                <item class="0" index="8" key="mossberg.weapon"/>
+                <item class="0" index="12" key="m16a4.weapon"/>
+                <item class="0" index="12" key="m16a4.weapon"/>
+                <item class="0" index="7" key="m240.weapon"/>
+                <item class="0" index="7" key="m240.weapon"/>
+                <item class="0" index="3" key="m24_a2.weapon"/>
+                <item class="0" index="3" key="m24_a2.weapon"/>
+                <item class="0" index="9" key="mp5sd.weapon"/>
+                <item class="0" index="9" key="mp5sd.weapon"/>
+                <item class="3" index="2" key="dollars.carry_item"/>
+                <item class="3" index="2" key="dollars.carry_item"/>
+                <item class="3" index="28" key="dollars_300.carry_item"/>
+                <item class="3" index="28" key="dollars_300.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="10" key="vest2.carry_item"/>
+                <item class="3" index="10" key="vest2.carry_item"/>
+                <item class="1" index="50" key="stun_grenade.projectile"/>
+                <item class="1" index="51" key="hand_grenade.projectile"/>
+                <item class="1" index="53" key="impact_grenade.projectile"/>
+                <item class="1" index="56" key="flare.projectile"/>
+                <item class="1" index="56" key="flare.projectile"/>
+                <item class="0" index="72" key="binoculars.weapon"/>
+                <item class="0" index="107" key="wrench_small.weapon"/>
+                <item class="0" index="4" key="riot_shield.weapon"/>
+                <item class="0" index="48" key="beretta_m9.weapon"/>
+                <item class="0" index="69" key="mini_uzi.weapon"/>
+                <item class="0" index="6" key="m72_law.weapon"/>
+                <item class="0" index="90" key="claymore_resource.weapon"/>
+                <item class="0" index="27" key="cover_resource.weapon"/>
+                <item class="0" index="39" key="mg_resource.weapon"/>
+                <item class="0" index="47" key="mortar_resource.weapon"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="3" index="45" key="camouflage_suit.carry_item"/>
+                <item class="1" index="51" key="hand_grenade.projectile"/>
+            </stash>
+            <backpack>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="3" index="10" key="vest2.carry_item"/>
+                <item class="0" index="21" key="medikit.weapon"/>
+                <item class="0" index="4" key="riot_shield.weapon"/>
+                <item class="0" index="6" key="m72_law.weapon"/>
+                <item class="0" index="47" key="mortar_resource.weapon"/>
+                <item class="0" index="27" key="cover_resource.weapon"/>
+                <item class="0" index="9" key="mp5sd.weapon"/>
+                <item class="0" index="3" key="m24_a2.weapon"/>
+                <item class="0" index="8" key="mossberg.weapon"/>
+                <item class="0" index="7" key="m240.weapon"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="28" key="dollars_300.carry_item"/>
+                <item class="3" index="2" key="dollars.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="28" key="dollars_300.carry_item"/>
+                <item class="3" index="2" key="dollars.carry_item"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="54" key="c4.projectile"/>
+                <item class="1" index="56" key="flare.projectile"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+                <item class="3" index="56" key="gold_bar.carry_item"/>
+            </backpack>
+        </person>
+        <profile game_version="146" username="XYZ" digest="" sid="00000000"
+                 rid="C553DFBBD2B803691813024A58D23C23A55DAAB3857D3B81D2004ECA091AC9AC" squad_tag="" color="1 1 1 0">
+            <stats kills="0" deaths="0" time_played="5253.000000" player_kills="0" teamkills="0" longest_kill_streak="0"
+                   targets_destroyed="0" vehicles_destroyed="0" soldiers_healed="0" times_got_healed="0"
+                   distance_moved="280.614929" shots_fired="23" throwables_thrown="0" rank_progression="0.000000">
+                <monitor name="kill combo"/>
+                <monitor name="death streak" longest_death_streak="0"/>
+                <monitor/>
+                <monitor/>
+                <monitor/>
+                <monitor name="destroyer" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="saboteur" level="0">
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="tracker" level="0">
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="killer" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="stealth" level="0">
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="journal_deaths_at_start_trigger" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="difficulty_change_trigger" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_1st_map_victory" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_deaths" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_miniboss_kill" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_green_campaign_complete" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_gray_campaign_complete" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_brown_campaign_complete" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_darkcat_destroyed" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_roadkills" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_medic" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_enemy_weapon_delivered" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_prison_destroyed" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_blast_kills" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_shots_fired" level="0">
+                    <criteria count="23"/>
+                </monitor>
+                <monitor name="steam_antiair_destroyed" level="0">
+                    <criteria count="0"/>
+                </monitor>
+            </stats>
+        </profile>
+    </player>
+</data>

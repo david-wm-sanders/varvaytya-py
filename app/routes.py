@@ -1,3 +1,4 @@
+import pathlib
 import xml.etree.ElementTree as XmlET
 
 from sqlalchemy.orm.exc import NoResultFound
@@ -105,34 +106,28 @@ def set_profile():
         return """<data ok="0" issue="indigestible"></data>\n"""
 
     data = next(request.form.items())[0]
-    print(data)
+    # print(f"{data}")
+    # hack: output data here during debugging
+    # (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
     data_xml = XmlET.fromstring(data)
     player_elements = data_xml.findall("./player")
     # todo: check to make sure we have some data here
     # print(f"{players=}")
     for player_elem in player_elements:
-        player = PlayerDc.from_element(player_elem)
-        print(player)
-        print(player.person)
+        playerdc = PlayerDc.from_element(player_elem)
+        print(f"{playerdc=}")
+        print(f"{playerdc.person=}")
+        print(f"{playerdc.profile=}")
         # hash_, rid = player.attrib["hash"], player.attrib["rid"]
         # # todo: check hash in db for realm and rid matches for hash
-        # # get stuff from <person>
-        # person = player.find("person")
-        # p = person.attrib
-        # todo: check we actually have a person
-        # print(f"{person=}")
-        # todo: convert these xml string attributes into their expected types
-        # max_auth = p.get("max_authority_reached", None)
-        # authority = p.get("authority", None)
-        # job_points = p.get("job_points", None)
-        # faction = p.get("faction", None)
-        # name = p.get("name", None)
-        # alive = p.get("alive", None)
-        # soldier_group_id = p.get("soldier_group_id", None)
-        # soldier_group_name = p.get("soldier_group_name", None)
-        # squad_size_setting = p.get("squad_size_setting", None)
-        # squad_config_index = p.get("squad_config_index", None)
-        # block = p.get("block", None)
+        try:
+            player = Player.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
+        except NoResultFound as e:
+            # this player doesn't exist
+            print(f"set profile error: player ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
+            continue
+        print(f"{player=}")
+
 
     return ""
 
