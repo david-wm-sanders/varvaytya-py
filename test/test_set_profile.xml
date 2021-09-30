@@ -1,5 +1,5 @@
 <data>
-    <player hash='2707271672' digest='' rid='0000000000000000000000000000000000000000000000000000000000000000'>
+    <player hash='2707271672' digest='' rid='7ABBB093027BD34020852D8E3684AA01590715B981BB954000DCA04B0E0C1888'>
         <person max_authority_reached="100.000000" authority="100.000000" job_points="1000000.000000"
                 faction="0" name="Bruce Ross" version="146" alive="1"
                 soldier_group_id="0" soldier_group_name="default"
@@ -43,7 +43,7 @@
             </backpack>
         </person>
         <profile game_version="146" username="MR. BONG"
-                 digest="" sid="00000000" rid="0000000000000000000000000000000000000000000000000000000000000000"
+                 digest="" sid="00000000" rid="7ABBB093027BD34020852D8E3684AA01590715B981BB954000DCA04B0E0C1888"
                  squad_tag="" color="1 1 1 0">
             <stats kills="0" deaths="0" time_played="698.000000" player_kills="0" teamkills="0" longest_kill_streak="0"
                    targets_destroyed="0" vehicles_destroyed="0" soldiers_healed="0" times_got_healed="0"
