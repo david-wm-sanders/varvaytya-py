@@ -1,45 +1,100 @@
+import re
 import xml.etree.ElementTree as XmlET
 from sqlalchemy.orm.exc import NoResultFound
 from flask import request, abort
 from app import app, db
 from app.models import Realm, Player
+from app.exc import EnlistdException
+
+
+class EnlistdValidationError(EnlistdException):
+    pass
+
+
+class DigestNotSupportedError(EnlistdValidationError):
+    issue = "rid auth only"
+
+
+class GetMissingArgError(EnlistdValidationError):
+    issue = "missing argument(s)"
+
+
+class HashNotIntError(EnlistdValidationError):
+    issue = "hash not int"
+
+
+class UsernameTooLongError(EnlistdValidationError):
+    issue = "username too long"
+
+
+class UsernameFormatError(EnlistdValidationError):
+    issue = "bad username format"
+
+
+class RidLengthError(EnlistdValidationError):
+    issue = "bad rid length"
+
+
+def _validate_username(username: str):
+    if len(username) > 32:
+        raise UsernameTooLongError(f"Username '{username}' length > 32 characters")
+    if re.match(r"\s", username):
+        raise UsernameFormatError(f"Username '{username}' can't begin with whitespace")
+    # todo: check against blacklist?
+
+
+def _validate_rid(rid: str):
+    if i := len(rid) != 64:
+        # print(f"get profile error: rid '{rid}' not 64 characters long")
+        # return """<data ok="0" issue="evil rid length"></data>\n"""
+        raise RidLengthError(f"Rid length {i} != 64")
+    # todo: check the rid is a hexadecimal string
+
+
+def _get_request_args():
+    # get the arguments
+    digest = request.args.get("digest")
+    hash_, username = request.args.get("hash"), request.args.get("username")
+    rid = request.args.get("rid")
+    realm_name, realm_digest = request.args.get("realm"), request.args.get("realm_digest")
+    # validate data (and do any required conversions):
+    # digest not allowed, rid only
+    if digest:
+        raise DigestNotSupportedError("Only rid auth is supported")
+    # mandatory parameters
+    if not(hash_ and username and rid and realm_name and realm_digest):
+        raise GetMissingArgError(f"Missing get arg: {request.args}")
+    # hash must be int, attempt conversion here
+    try:
+        hash_int = int(hash_)
+    except ValueError as e:
+        raise HashNotIntError(f"Hash '{hash_}' not convertible to int") from e
+    # validate username and rid
+    _validate_username(username)
+    _validate_rid(rid)
 
 
 @app.route("/get_profile.php")
 def get_profile():
     print(f"get_profile req args: {request.args}")
 
+    try:
+        rargs = _get_request_args()
+    except EnlistdValidationError as e:
+        # todo: get issue from error and return fail response mit issue
+        pass
     # get the arguments
-    digest = request.args.get("digest")
-    hash_, username = request.args.get("hash"), request.args.get("username")
-    rid = request.args.get("rid")
-    realm_name, realm_digest = request.args.get("realm"), request.args.get("realm_digest")
+    # digest = request.args.get("digest")
+    # hash_, username = request.args.get("hash"), request.args.get("username")
+    # rid = request.args.get("rid")
+    # realm_name, realm_digest = request.args.get("realm"), request.args.get("realm_digest")
 
     # validate data at each step, if validation fails send <data ok=0> with issue:
     # todo: add better error logging
     # if not all required args specified, fail
-    if not (hash_ and username and rid and realm_name and realm_digest):
-        print("get profile error: missing arguments :/")
-        return """<data ok="0" issue="missing arguments :/"></data>\n"""
-    # if hash not int, fail
-    try:
-        hash_ = int(hash_)
-    except ValueError as e:
-        print(f"get profile error: hash '{hash_} cannot be converted to int")
-        return """<data ok="0" issue="hash not int"></data>\n"""
-    # if username too long, fail
-    if username and len(username) > 32:
-        print(f"get profile error: username '{username}' > 32 characters")
-        return """<data ok="0" issue="username too long"></data>\n"""
-    # if digest supplied, fail
-    if digest:
-        print("get profile error: digest unsupported")
-        return """<data ok="0" issue="rid auth only"></data>\n"""
-    # if rid not correct length, fail
-    if len(rid) != 64:
-        print(f"get profile error: rid '{rid}' not 64 characters long")
-        return """<data ok="0" issue="evil rid length"></data>\n"""
-    # todo: check the rid is a hexadecimal string
+    # if not (hash_ and username and rid and realm_name and realm_digest):
+    #     print("get profile error: missing arguments :/")
+    #     return """<data ok="0" issue="missing arguments :/"></data>\n"""
 
     # check db for the specified realm name
     try:
