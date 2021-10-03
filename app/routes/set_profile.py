@@ -1,6 +1,8 @@
 import xml.etree.ElementTree as XmlET
+
 from sqlalchemy.orm.exc import NoResultFound
 from flask import request, abort
+
 from app import app, db
 from app.models import Realm, Player
 from app.dc import PlayerDc
