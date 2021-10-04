@@ -94,7 +94,7 @@ class PersonDc:
         items = {}
         item_elements = element.findall("item")
         # todo: validate len(item_elements) == 5
-        print(f"{item_elements=}")
+        # print(f"{item_elements=}")
         for item_element in item_elements:
             item = PersonItemDc.from_element(item_element)
             items[item.slot] = item
@@ -131,7 +131,7 @@ class ProfileStatsDc:
         try:
             kills = int(x.get("kills"))
             deaths = int(x.get("deaths"))
-            print(f"tp={x.get('time_played', None)}")
+            # print(f"tp={x.get('time_played', None)}")
             time_played = int(float(x.get("time_played")))
             player_kills = int(x.get("player_kills"))
             teamkills = int(x.get("teamkills"))
