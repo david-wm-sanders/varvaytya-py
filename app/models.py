@@ -1,3 +1,5 @@
+import xml.etree.ElementTree as XmlET
+
 from app import db
 
 
@@ -90,3 +92,52 @@ class Player(db.Model):
 
     def __repr__(self):
         return f"<Player [{self.realm.name}] hash={self.hash} username='{self.username}'>"
+
+    def as_xml_data(self):
+        # todo: make xml get_profile response from player
+        # make data element
+        data_element = XmlET.Element("data", {"ok": "1"})
+        # make profile element
+        profile_element = XmlET.Element("profile",
+                                        {"game_version": str(self.game_version),
+                                         "username": self.username,
+                                         "digest": "",
+                                         "sid": str(self.sid), "rid": self.rid,
+                                         "squad_tag": self.squad_tag, "color": self.color})
+        # make stats element
+        stats_element = XmlET.Element("stats",
+                                      {"kills": str(self.kills), "deaths": str(self.deaths),
+                                       "time_played": str(self.time_played),
+                                       "self_kills": str(self.self_kills), "teamkills": str(self.teamkills),
+                                       "longest_kill_streak": str(self.longest_kill_streak),
+                                       "targets_destroyed": str(self.targets_destroyed),
+                                       "vehicles_destroyed": str(self.vehicles_destroyed),
+                                       "soldiers_healed": str(self.soldiers_healed),
+                                       "times_got_healed": str(self.times_got_healed),
+                                       "distance_moved": str(self.distance_moved),
+                                       "shots_fired": str(self.shots_fired),
+                                       "throwables_thrown": str(self.throwables_thrown),
+                                       "rank_progression": str(self.rank_progression)})
+        # todo: monitors
+        # adds stats element to profile element
+        profile_element.append(stats_element)
+        # add profile element to data element
+        data_element.append(profile_element)
+        # make person element
+        person_element = XmlET.Element("person",
+                                       {"max_authority_reached": str(self.max_authority_reached),
+                                        "authority": str(self.authority), "job_points": str(self.job_points),
+                                        "faction": str(self.faction), "name": str(self.name),
+                                        "version": str(self.game_version), "alive": str(self.alive),
+                                        "soldier_group_id": str(self.soldier_group_id),
+                                        "soldier_group_name": str(self.soldier_group_name),
+                                        # block here? if required xd
+                                        "squad_size_setting": str(self.squad_size_setting)})
+        # todo: add order element (if required... can we just fake it due to the way you spawn on join multiplayer?)
+        # todo: add item elements to person
+        # todo: add stash and backpack elements
+        data_element.append(person_element)
+        # return the player to the game server
+        xml_string = XmlET.tostring(data_element, encoding="unicode")
+        print(f"{xml_string=}")
+        return f"{xml_string}\n"

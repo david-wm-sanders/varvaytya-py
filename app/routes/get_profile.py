@@ -58,55 +58,10 @@ def get_profile():
     try:
         hash_, username, rid, realm_name, realm_digest = _get_request_args()
         realm = get_realm(realm_name, realm_digest)
-        player = get_player(realm.id, hash_, rid)
-        # todo: make xml get_profile response from player
-        # make data element
-        data_element = XmlET.Element("data", {"ok": "1"})
-        # make profile element
-        profile_element = XmlET.Element("profile",
-                                        {"game_version": str(player.game_version),
-                                         "username": player.username,
-                                         "digest": "",
-                                         "sid": str(player.sid), "rid": player.rid,
-                                         "squad_tag": player.squad_tag, "color": player.color})
-        # make stats element
-        stats_element = XmlET.Element("stats",
-                                      {"kills": str(player.kills), "deaths": str(player.deaths),
-                                       "time_played": str(player.time_played),
-                                       "player_kills": str(player.player_kills), "teamkills": str(player.teamkills),
-                                       "longest_kill_streak": str(player.longest_kill_streak),
-                                       "targets_destroyed": str(player.targets_destroyed),
-                                       "vehicles_destroyed": str(player.vehicles_destroyed),
-                                       "soldiers_healed": str(player.soldiers_healed),
-                                       "times_got_healed": str(player.times_got_healed),
-                                       "distance_moved": str(player.distance_moved),
-                                       "shots_fired": str(player.shots_fired),
-                                       "throwables_thrown": str(player.throwables_thrown),
-                                       "rank_progression": str(player.rank_progression)})
-        # todo: monitors
-        # adds stats element to profile element
-        profile_element.append(stats_element)
-        # add profile element to data element
-        data_element.append(profile_element)
-        # make person element
-        person_element = XmlET.Element("person",
-                                       {"max_authority_reached": str(player.max_authority_reached),
-                                        "authority": str(player.authority), "job_points": str(player.job_points),
-                                        "faction": str(player.faction), "name": str(player.name),
-                                        "version": str(player.game_version), "alive": str(player.alive),
-                                        "soldier_group_id": str(player.soldier_group_id),
-                                        "soldier_group_name": str(player.soldier_group_name),
-                                        # block here? if required xd
-                                        "squad_size_setting": str(player.squad_size_setting)})
-        # todo: add order element (if required... can we just fake it due to the way you spawn on join multiplayer?)
-        # todo: add item elements to person
-        # todo: add stash and backpack elements
-        data_element.append(person_element)
-        # return the player to the game server
-        xml_string = XmlET.tostring(data_element, encoding="unicode")
-        print(f"{xml_string=}")
-        return f"{xml_string}\n"
-        # todo: return the player
+        # todo: get the realm item id map
+        # todo: handle the edge case where the game server can make a 2nd get after map load, before any set
+        player: Player = get_player(realm.id, hash_, rid)
+        return player.as_xml_data()
     except PlayerNotFoundError as e:
         # player not found, create and return init profile data
         print(f"Creating new player (hash={hash_}, username='{username}') in '{realm_name}'...")
