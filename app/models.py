@@ -41,14 +41,14 @@ class Player(db.Model):
     squad_size_setting = db.Column(db.Integer)
     squad_config_index = db.Column(db.Integer)
     # block info may also be irrelevant? can we just return fixed "0 0"?
-    blockx = db.Column(db.Integer)
-    blocky = db.Column(db.Integer)
+    # blockx = db.Column(db.Integer)
+    # blocky = db.Column(db.Integer)
     # person order info:
     # suspect these aren't relevant for player characters
     # can we just not save/return them?
-    order_moving = db.Column(db.Boolean)
-    order_target = db.Column(db.String(32))
-    order_class = db.Column(db.Integer)
+    # order_moving = db.Column(db.Boolean)
+    # order_target = db.Column(db.String(32))
+    # order_class = db.Column(db.Integer)
     # person item info:
     item0_index = db.Column(db.Integer)
     item0_amount = db.Column(db.Integer)
@@ -127,10 +127,10 @@ class Player(db.Model):
         person_element = XmlET.Element("person",
                                        {"max_authority_reached": str(self.max_authority_reached),
                                         "authority": str(self.authority), "job_points": str(self.job_points),
-                                        "faction": str(self.faction), "name": str(self.name),
+                                        "faction": str(self.faction), "name": self.name,
                                         "version": str(self.game_version), "alive": str(self.alive),
                                         "soldier_group_id": str(self.soldier_group_id),
-                                        "soldier_group_name": str(self.soldier_group_name),
+                                        "soldier_group_name": self.soldier_group_name,
                                         # block here? if required xd
                                         "squad_size_setting": str(self.squad_size_setting)})
         # todo: add order element (if required... can we just fake it due to the way you spawn on join multiplayer?)
@@ -139,5 +139,6 @@ class Player(db.Model):
         data_element.append(person_element)
         # return the player to the game server
         xml_string = XmlET.tostring(data_element, encoding="unicode")
-        print(f"{xml_string=}")
+        # print(f"{xml_string=}")
+        # we return the data with a \n - otherwise rwr_server will not like it xd
         return f"{xml_string}\n"
