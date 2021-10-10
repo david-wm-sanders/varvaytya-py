@@ -119,9 +119,9 @@ class Account(db.Model):
                                        "throwables_thrown": str(self.throwables_thrown),
                                        "rank_progression": str(self.rank_progression)})
         # todo: monitors
-        # adds stats element to profile element
+        # insert stats element into profile element
         profile_element.append(stats_element)
-        # add profile element to data element
+        # insert profile element into data element
         data_element.append(profile_element)
         # make person element
         person_element = XmlET.Element("person",
@@ -134,8 +134,25 @@ class Account(db.Model):
                                         # block here? if required xd
                                         "squad_size_setting": str(self.squad_size_setting)})
         # todo: add order element (if required... can we just fake it due to the way you spawn on join multiplayer?)
-        # todo: add item elements to person
+        # make active equipment item elements and insert them into person element
+        i0 = XmlET.Element("item", {"slot": "0",
+                                    "index": str(self.item0_index), "amount": str(self.item0_amount),
+                                    "key": self.item0_key})
+        i1 = XmlET.Element("item", {"slot": "1",
+                                    "index": str(self.item1_index), "amount": str(self.item1_amount),
+                                    "key": self.item1_key})
+        i2 = XmlET.Element("item", {"slot": "2",
+                                    "index": str(self.item2_index), "amount": str(self.item2_amount),
+                                    "key": self.item2_key})
+        i4 = XmlET.Element("item", {"slot": "4",
+                                    "index": str(self.item4_index), "amount": str(self.item4_amount),
+                                    "key": self.item4_key})
+        i5 = XmlET.Element("item", {"slot": "5",
+                                    "index": str(self.item5_index), "amount": str(self.item5_amount),
+                                    "key": self.item5_key})
+        person_element.extend([i0, i1, i2, i4, i5])
         # todo: add stash and backpack elements
+        # insert the person element into the data element
         data_element.append(person_element)
         # return the player to the game server
         xml_string = XmlET.tostring(data_element, encoding="unicode")
