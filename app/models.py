@@ -17,8 +17,8 @@ class Account(db.Model):
     # can be created by the server, hence these are not nullable
     # core player tag and profile tag info:
     # should hash and realm_id be the other way round? (as there are fewer realms than players)
-    hash = db.Column(db.Integer, primary_key=True)
     realm_id = db.Column(db.Integer, db.ForeignKey("realm.id"), primary_key=True)
+    hash = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), index=True, nullable=False)
     rid = db.Column(db.String(64), nullable=False)
 

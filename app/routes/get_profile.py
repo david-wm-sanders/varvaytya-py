@@ -37,7 +37,7 @@ def _get_request_args() -> tuple[int, str, str, str, str]:
 
 
 def _create_account(realm_id: int, hash_: int, username: str, rid: str):
-    account = Account(hash=hash_, realm_id=realm_id, username=username, rid=rid)
+    account = Account(realm_id=realm_id, hash=hash_, username=username, rid=rid)
     db.session.add(account)
     db.session.commit()
     # make the init profile for the game server
