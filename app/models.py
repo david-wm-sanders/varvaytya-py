@@ -7,10 +7,10 @@ class Realm(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(32), index=True, unique=True, nullable=False)
     digest = db.Column(db.String(64), nullable=False)
-    players = db.relationship("Player", backref="realm", lazy="dynamic")
+    accounts = db.relationship("Account", backref="realm", lazy="dynamic")
 
 
-class Player(db.Model):
+class Account(db.Model):
     # when get_profile encounters a new username (that validates)
     # it populates hash, realm_id, username, rid and returns a sparser
     # <profile> to the game server to confirm that the account <person>
@@ -91,7 +91,7 @@ class Player(db.Model):
     # todo: stats monitors
 
     def __repr__(self):
-        return f"<Player [{self.realm.name}] hash={self.hash} username='{self.username}'>"
+        return f"<Account [{self.realm.name}] hash={self.hash} username='{self.username}'>"
 
     def as_xml_data(self):
         # todo: make xml get_profile response from player

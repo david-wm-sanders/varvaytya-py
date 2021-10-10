@@ -4,7 +4,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from flask import request, abort
 
 from app import app, db
-from app.models import Realm, Player
+from app.models import Realm, Account
 from app.dc import PlayerDc
 
 
@@ -33,39 +33,39 @@ def set_profile():
     # hack: output data here during debugging
     # (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
     data_xml = XmlET.fromstring(data)
-    player_elements = data_xml.findall("./player")
+    player_elements = data_xml.findall("./account")
     # todo: check to make sure we have some data here
     # print(f"{players=}")
-    updated_players = []
+    updated_accounts = []
     for player_elem in player_elements:
         playerdc = PlayerDc.from_element(player_elem)
 
         # check hash in db for realm and rid matches for hash
         try:
-            player = Player.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
+            account = Account.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
         except NoResultFound as e:
-            # this player doesn't exist
-            print(f"set profile error: player ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
+            # this account doesn't exist
+            print(f"set profile error: account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
             continue
 
-        # print(f"{player=}")
+        # print(f"{account=}")
 
         # more validations:
         # check rid
-        if playerdc.rid != player.rid:
-            print(f"set profile error: player ({realm.id}, {playerdc.hash_}) evil rid")
+        if playerdc.rid != account.rid:
+            print(f"set profile error: account ({realm.id}, {playerdc.hash_}) evil rid")
             continue
         # todo: check steam id
         # issue: sid not set at get, sent first time in a set_profile, will be null/None
         # need to check this and skip if None
-        # if playerdc.profile.sid != player.sid:
-        #     # print(f"set profile error: player ({realm.id}, {playerdc.hash_}) sid mismatch")
+        # if playerdc.profile.sid != account.sid:
+        #     # print(f"set profile error: account ({realm.id}, {playerdc.hash_}) sid mismatch")
         #     continue
 
-        # create a player mapping for bulk_insert_mappings?
+        # create a account mapping for bulk_insert_mappings?
         # we need to specify hash and realm_id because they constitute the primary key
         # we can omit rid because it should stay constant?
-        # and the rid check should already have identified a problem with this player set spec
+        # and the rid check should already have identified a problem with this account set spec
         # we omit username because it was already set by the get and should be immutable
         # we must "update" the sid because it is not specified in the original get
         # i.e. this could be the first set for a specific profile
@@ -100,10 +100,10 @@ def set_profile():
                   rank_progression=s.rank_progression)
 
         print(f"{pm=}")
-        updated_players.append(pm)
+        updated_accounts.append(pm)
 
-    print(f"set profile: updating {len(updated_players)} players...")
-    db.session.bulk_update_mappings(Player, updated_players)
+    print(f"set profile: updating {len(updated_accounts)} players...")
+    db.session.bulk_update_mappings(Account, updated_accounts)
     print(f"set profile: committing updates...")
     db.session.commit()
 

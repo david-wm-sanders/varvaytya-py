@@ -2,8 +2,8 @@ import re
 from sqlalchemy.exc import NoResultFound
 
 from app.exc import UsernameTooLongError, UsernameFormatError, RidLengthError, RidNotHexError, RealmDigestLengthError, \
-    RealmDigestNotHexError, RealmDigestIncorrectError, RealmNotFoundError, RidIncorrectError, PlayerNotFoundError
-from app.models import Realm, Player
+    RealmDigestNotHexError, RealmDigestIncorrectError, RealmNotFoundError, RidIncorrectError, AccountNotFoundError
+from app.models import Realm, Account
 
 
 def validate_username(username: str):
@@ -50,14 +50,14 @@ def get_realm(realm_name: str, realm_digest: str) -> Realm:
         raise RealmNotFoundError(f"Realm '{realm_name}' doesn't exist") from e
 
 
-def get_player(realm_id: int, hash_: int, rid: str) -> Player:
+def get_account(realm_id: int, hash_: int, rid: str) -> Account:
     try:
-        player = Player.query.filter_by(hash=hash_, realm_id=realm_id).one()
+        account = Account.query.filter_by(hash=hash_, realm_id=realm_id).one()
         # check rid here and raise exception if doesn't match
         # todo: make consistent time?
-        if rid == player.rid:
-            return player
+        if rid == account.rid:
+            return account
         else:
-            raise RidIncorrectError(f"Rid '{rid}' does not match the stored rid for '{player.username}'")
+            raise RidIncorrectError(f"Rid '{rid}' does not match the stored rid for '{account.username}'")
     except NoResultFound as e:
-        raise PlayerNotFoundError(f"Player ({realm_id}, {hash_}) not found") from e
+        raise AccountNotFoundError(f"Player ({realm_id}, {hash_}) not found") from e
