@@ -60,4 +60,4 @@ def get_account(realm_id: int, hash_: int, rid: str) -> Account:
         else:
             raise RidIncorrectError(f"Rid '{rid}' does not match the stored rid for '{account.username}'")
     except NoResultFound as e:
-        raise AccountNotFoundError(f"Player ({realm_id}, {hash_}) not found") from e
+        raise AccountNotFoundError(f"Account ({realm_id}, {hash_}) not found") from e
