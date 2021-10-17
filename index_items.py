@@ -61,12 +61,65 @@ def _discover_items(pkg_path: pathlib.Path) -> tuple[dict[str, pathlib.Path],
         else:
             print(f"Warning: carryitem '{name}' already discovered, duplicates?! ('{carryitem_path}')")
 
-    # add special stuff
+    # add special sauce
+    # if experimental things exist, add them as they might be referenced
     if (ewp := weapons_path / "experimental_weapons.xml").exists():
         _w["experimental_weapons.xml"] = ewp
     if (etp := weapons_path / "experimental_projectiles.xml").exists():
         _t["experimental_projectiles.xml"] = etp
+    # add all_throwables.xml as invasion references it
+    if (etp := weapons_path / "all_throwables.xml").exists():
+        _t["all_throwables.xml"] = etp
     return _w, _t, _c
+
+
+def _load_xml(xml_path: pathlib.Path, tag: str, file_map: dict[str, pathlib.Path], _loaded=None):
+    # keep track of loaded keys so we can avoid yielding duplicates, even if there are dupes in source xml
+    loaded = set() if _loaded is None else _loaded
+    xml_str = xml_path.read_text(encoding="utf-8")
+    try:
+        xmlet = XmlET.fromstring(xml_str)
+    except XmlET.ParseError as e:
+        print(f"Error: {e} for '{xml_path.name}', skipped!")
+        # if the file is unloaded as XML (i.e. we have encountered a ParseError^)
+        # return early to stop iteration
+        return
+    if xmlet.tag == f"{tag}s":
+        # handle list form: weapons | projectiles | carry_items
+        tag_s = xmlet.findall(f"./{tag}")
+        for t in tag_s:
+            if "file" in t.attrib:
+                # handle <weapon file="?" />
+                f = t.attrib["file"]
+                fp = file_map.get(f, None)
+                if fp:
+                    yield from _load_xml(fp, tag, file_map, _loaded=loaded)
+                else:
+                    print(f"Warning: file ref '{f}' not discovered (i.e. not in file map), ignored...")
+            elif "key" in t.attrib:
+                # handle <weapon key="?" ... >...</
+                key = t.attrib["key"]
+                if key not in loaded:
+                    loaded.add(key)
+                    yield key
+                else:
+                    print(f"Warning: key '{key}' already loaded, skipping...")
+            else:
+                print(f"Warning: couldn't find required attribute in {t.attrib} of {t}, ignored...")
+    elif xmlet.tag == tag:
+        # handle singular (weapon | projectile | carry_item) root tag
+        if "key" in xmlet.attrib:
+            # yield xmlet.attrib["key"]
+            key = xmlet.attrib["key"]
+            if key not in loaded:
+                loaded.add(key)
+                yield key
+            else:
+                print(f"Warning: key '{key}' already loaded, skipping...")
+        else:
+            print(f"Warning: no key in <weapon> loaded from '{xml_path}', ignored...")
+    else:
+        print(f"Warning: root tag '{xmlet.tag}' doesn't match '{tag}(s)', ignored...")
 
 
 if __name__ == '__main__':
@@ -119,67 +172,38 @@ if __name__ == '__main__':
     # todo: fix this hack for dev
     prefix = _prefix if _prefix else _prefix_default
 
-    # load {prefix}all_weapons.xml, parse as xml, get <weapon file="*.weapon"/>'s as list
+    # load {prefix}all_weapons.xml, parse as xml, extract a list of weapon keys
     all_weapons_xml_path = pkg.path / f"weapons/{prefix}all_weapons.xml"
     if not all_weapons_xml_path.exists():
         print(f"Error: '{all_weapons_xml_path}' doesn't exist :/")
         sys.exit(4)
     print(f"Loading '{all_weapons_xml_path}'...")
-
-    def _load_xml(xml_path: pathlib.Path, tag: str, file_map: dict[str, pathlib.Path], _loaded=None):
-        # keep track of loaded keys so we can avoid yielding duplicates, even if there are dupes in source xml
-        loaded = set() if _loaded is None else _loaded
-        xml_str = xml_path.read_text(encoding="utf-8")
-        try:
-            xmlet = XmlET.fromstring(xml_str)
-        except XmlET.ParseError as e:
-            print(f"Error: {e} for '{xml_path.name}', skipped!")
-            # if the file is unloaded as XML (i.e. we have encountered a ParseError^)
-            # return early to stop iteration
-            return
-        if xmlet.tag == f"{tag}s":
-            # handle list form: weapons | projectiles | carry_items
-            tag_s = xmlet.findall(f"./{tag}")
-            for t in tag_s:
-                if "file" in t.attrib:
-                    # handle <weapon file="?" />
-                    f = t.attrib["file"]
-                    fp = file_map.get(f, None)
-                    if fp:
-                        yield from _load_xml(fp, tag, file_map, _loaded=loaded)
-                    else:
-                        print(f"Warning: file ref '{f}' not discovered (i.e. not in file map), ignored...")
-                elif "key" in t.attrib:
-                    # handle <weapon key="?" ... >...</
-                    key = t.attrib["key"]
-                    if key not in loaded:
-                        loaded.add(key)
-                        yield key
-                    else:
-                        print(f"Warning: key '{key}' already loaded, skipping...")
-                else:
-                    print(f"Warning: couldn't find required attribute in {t.attrib} of {t}, ignored...")
-        elif xmlet.tag == tag:
-            # handle singular (weapon | projectile | carry_item) root tag
-            if "key" in xmlet.attrib:
-                # yield xmlet.attrib["key"]
-                key = xmlet.attrib["key"]
-                if key not in loaded:
-                    loaded.add(key)
-                    yield key
-                else:
-                    print(f"Warning: key '{key}' already loaded, skipping...")
-            else:
-                print(f"Warning: no key in <weapon> loaded from '{xml_path}', ignored...")
-        else:
-            print(f"Warning: root tag '{xmlet.tag}' doesn't match '{tag}(s)', ignored...")
-
     all_weapons = list(_load_xml(all_weapons_xml_path, "weapon", weapon_paths))
     for i, weapon in enumerate(all_weapons):
-        print(f"index {i}: {weapon}")
+        print(f"weapon index {i}: {weapon}")
 
-    # todo: for each *.weapon, find in item_paths dict, load xml from path, find <weapon> defs in *.weapon
-    # todo: add an entry to an items list (item: (class, index, key))
-    # todo: repeat for throwables et carry items, populating the items list
+    # load {prefix}all_throwables.xml, parse as xml, extract a list of projectile keys
+    all_projectiles_xml_path = pkg.path / f"weapons/{prefix}all_throwables.xml"
+    if not all_projectiles_xml_path.exists():
+        print(f"Error: '{all_projectiles_xml_path}' doesn't exist :/")
+        sys.exit(5)
+    print(f"Loading '{all_projectiles_xml_path}'...")
+    all_projectiles = list(_load_xml(all_projectiles_xml_path, "projectile", projectile_paths))
+    for i, projectile in enumerate(all_projectiles, 50):
+        print(f"projectile index {i}: {projectile}")
+
+    # load {prefix}all_carry_items.xml, parse as xml, extract a list of carry_item keys
+    all_carryitems_xml_path = pkg.path / f"items/{prefix}all_carry_items.xml"
+    if not all_carryitems_xml_path.exists():
+        print(f"Error: '{all_carryitems_xml_path}' doesn't exist :/")
+        all_carryitems_xml_path = VANILLA_PATH / f"items/{prefix}all_carry_items.xml"
+        if not all_carryitems_xml_path.exists():
+            print(f"Error: '{all_carryitems_xml_path}' doesn't exist :/")
+            sys.exit(6)
+    print(f"Loading '{all_carryitems_xml_path}'...")
+    all_carryitems = list(_load_xml(all_carryitems_xml_path, "carry_item", carryitems_paths))
+    for i, carryitem in enumerate(all_carryitems):
+        print(f"carryitem index {i}: {carryitem}")
+
     # todo: write out all the items to a csv itemdefs
 
