@@ -88,7 +88,7 @@ class ProfileDc:
             print(f"Profile attribute load failed: {e}")
             raise
 
-        # todo: load profile stats
+        # load profile stats
         stats_elem = element.find("stats")
         stats = ProfileStatsDc.from_element(stats_elem)
 

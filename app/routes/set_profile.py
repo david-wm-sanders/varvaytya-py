@@ -1,3 +1,4 @@
+import pathlib
 import xml.etree.ElementTree as XmlET
 
 from sqlalchemy.orm.exc import NoResultFound
@@ -33,7 +34,7 @@ def set_profile():
     # hack: output data here during debugging
     # (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
     data_xml = XmlET.fromstring(data)
-    player_elements = data_xml.findall("./account")
+    player_elements = data_xml.findall("./player")
     # todo: check to make sure we have some data here
     # print(f"{players=}")
     updated_accounts = []

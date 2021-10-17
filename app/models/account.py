@@ -101,7 +101,7 @@ class Account(db.Model):
         stats_element = XmlET.Element("stats",
                                       {"kills": str(self.kills), "deaths": str(self.deaths),
                                        "time_played": str(self.time_played),
-                                       "self_kills": str(self.self_kills), "teamkills": str(self.teamkills),
+                                       "player_kills": str(self.player_kills), "teamkills": str(self.teamkills),
                                        "longest_kill_streak": str(self.longest_kill_streak),
                                        "targets_destroyed": str(self.targets_destroyed),
                                        "vehicles_destroyed": str(self.vehicles_destroyed),

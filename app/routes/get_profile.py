@@ -65,4 +65,6 @@ def get_profile():
     except (EnlistdValidationError, RealmNotFoundError,
             RealmDigestIncorrectError, RidIncorrectError) as e:
         # return fail response mit exception issue
+        print(f"Error: {e}")
+        # todo: return codes dependent on error?
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""

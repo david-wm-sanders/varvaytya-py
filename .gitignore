@@ -7,3 +7,5 @@ profiles.db
 *.profile
 *.person
 *.7z
+
+app/routes/data.xml
