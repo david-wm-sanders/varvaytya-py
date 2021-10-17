@@ -1,3 +1,4 @@
+from datetime import datetime
 import xml.etree.ElementTree as XmlET
 
 from flask import request
@@ -41,6 +42,7 @@ def _create_account(realm_id: int, hash_: int, username: str, rid: str):
     db.session.add(account)
     db.session.commit()
     # make the init profile for the game server
+    # todo: make xmlet properly here!
     init_profile = f"""<profile username="{username}" digest="" rid="{rid}" />"""
     return f"""<data ok="1">{init_profile}</data>\n"""
 
@@ -57,6 +59,8 @@ def get_profile():
         # todo: get the realm item id map
         # todo: handle the edge case where the game server can make a 2nd get after map load, before any set
         account: Account = get_account(realm.id, hash_, rid)
+        account.last_get_at = datetime.now()
+        db.session.commit()
         return account.as_xml_data()
     except AccountNotFoundError as e:
         # account not found, create and return init profile data

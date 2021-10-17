@@ -1,4 +1,5 @@
 import pathlib
+from datetime import datetime
 import xml.etree.ElementTree as XmlET
 
 from sqlalchemy.orm.exc import NoResultFound
@@ -32,7 +33,7 @@ def set_profile():
     data = next(request.form.items())[0]
     # print(f"{data}")
     # hack: output data here during debugging
-    # (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
+    (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
     data_xml = XmlET.fromstring(data)
     player_elements = data_xml.findall("./player")
     # todo: check to make sure we have some data here
@@ -73,7 +74,7 @@ def set_profile():
         i = playerdc.person.items
         item0, item1, item2, item4, item5 = i[0], i[1], i[2], i[4], i[5]
         s = playerdc.profile.stats
-        pm = dict(hash=playerdc.hash_, realm_id=realm.id,
+        pm = dict(hash=playerdc.hash_, realm_id=realm.id, last_set_at=datetime.now(),
                   # basic profile stuff
                   sid=playerdc.profile.sid, game_version=playerdc.profile.game_version,
                   squad_tag=playerdc.profile.squad_tag, color=playerdc.profile.color,

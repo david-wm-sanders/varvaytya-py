@@ -1,8 +1,8 @@
 """init tables
 
-Revision ID: f2589ec07e81
+Revision ID: 8104cd1bb591
 Revises: 
-Create Date: 2021-10-10 02:32:32.876602
+Create Date: 2021-10-17 07:56:25.634058
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'f2589ec07e81'
+revision = '8104cd1bb591'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,6 +30,9 @@ def upgrade():
     sa.Column('hash', sa.Integer(), nullable=False),
     sa.Column('username', sa.String(length=32), nullable=False),
     sa.Column('rid', sa.String(length=64), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('last_get_at', sa.DateTime(), nullable=False),
+    sa.Column('last_set_at', sa.DateTime(), nullable=True),
     sa.Column('sid', sa.Integer(), nullable=True),
     sa.Column('game_version', sa.Integer(), nullable=True),
     sa.Column('squad_tag', sa.String(length=3), nullable=True),

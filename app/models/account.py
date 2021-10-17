@@ -1,3 +1,4 @@
+from datetime import datetime
 from xml.etree import ElementTree as XmlET
 
 from app import db
@@ -14,6 +15,10 @@ class Account(db.Model):
     hash = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), index=True, nullable=False)
     rid = db.Column(db.String(64), nullable=False)
+    # access time related columns :clock:
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    last_get_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+    last_set_at = db.Column(db.DateTime)
 
     # the following columns are optional and will be populated
     # when set_profile receives data to save for the (hash, realm_id)
@@ -87,9 +92,17 @@ class Account(db.Model):
         return f"<Account [{self.realm.name}] hash={self.hash} username='{self.username}'>"
 
     def as_xml_data(self):
-        # todo: make xml get_profile response from player
+        # make xml get_profile response from player
+        # handle edge case where we can receive 2nd (or more) get for account before any set
+        if not self.last_set_at:
+            # make the init profile for the game server
+            # todo: make xmlet properly here!
+            init_profile = f"""<profile username="{self.username}" digest="" rid="{self.rid}" />"""
+            return f"""<data ok="1">{init_profile}</data>\n"""
+
         # make data element
         data_element = XmlET.Element("data", {"ok": "1"})
+
         # make profile element
         profile_element = XmlET.Element("profile",
                                         {"game_version": str(self.game_version),
