@@ -210,7 +210,7 @@ if __name__ == '__main__':
     #     print(f"carryitem index {i}: {carryitem}")
 
     # write out all the items to a csv itemdefs
-    csv_path = pathlib.Path(__file__).parent / f"{prefix}items.csv"
+    csv_path = pathlib.Path(__file__).parent / f"{pkg.name}_{prefix}items.csv"
     print(f"Writing items to '{csv_path}'...")
     with csv_path.open("w", encoding="utf-8", newline="") as csv_file:
         writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
