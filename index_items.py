@@ -1,9 +1,9 @@
 import sys
+import csv
 import dataclasses
 import pathlib
 from xml.etree import ElementTree as XmlET
 
-VERSION = 0.002
 DEFAULT_WIN_INSTALL_PATH = pathlib.Path(r"C:\Program Files (x86)\Steam\steamapps\common\RunningWithRifles")
 PACKAGE_PATH = DEFAULT_WIN_INSTALL_PATH / "media/packages"
 VANILLA_PATH = PACKAGE_PATH / "vanilla"
@@ -123,7 +123,7 @@ def _load_xml(xml_path: pathlib.Path, tag: str, file_map: dict[str, pathlib.Path
 
 
 if __name__ == '__main__':
-    print(f"enlistd/värväytyä item indexer ({VERSION})!")
+    print(f"enlistd/värväytyä item indexer!")
     # get the packages path, will ask user if none of the default paths exist
     pkgs_path = _get_pkgs_path()
     if not pkgs_path.exists() and pkgs_path.is_dir():
@@ -180,8 +180,9 @@ if __name__ == '__main__':
         sys.exit(4)
     print(f"Loading '{all_weapons_xml_path}'...")
     all_weapons = list(_load_xml(all_weapons_xml_path, "weapon", weapon_paths))
-    for i, weapon in enumerate(all_weapons):
-        print(f"weapon index {i}: {weapon}")
+    print(f"Package '{pkg.name}' loads {len(all_weapons)} weapons!")
+    # for i, weapon in enumerate(all_weapons):
+    #     print(f"weapon index {i}: {weapon}")
 
     # load {prefix}all_throwables.xml, parse as xml, extract a list of projectile keys
     all_projectiles_xml_path = pkg.path / f"weapons/{prefix}all_throwables.xml"
@@ -190,8 +191,9 @@ if __name__ == '__main__':
         sys.exit(5)
     print(f"Loading '{all_projectiles_xml_path}'...")
     all_projectiles = list(_load_xml(all_projectiles_xml_path, "projectile", projectile_paths))
-    for i, projectile in enumerate(all_projectiles, 50):
-        print(f"projectile index {i}: {projectile}")
+    print(f"Package '{pkg.name}' loads {len(all_projectiles)} projectiles!")
+    # for i, projectile in enumerate(all_projectiles, 50):
+    #     print(f"projectile index {i}: {projectile}")
 
     # load {prefix}all_carry_items.xml, parse as xml, extract a list of carry_item keys
     all_carryitems_xml_path = pkg.path / f"items/{prefix}all_carry_items.xml"
@@ -203,8 +205,26 @@ if __name__ == '__main__':
             sys.exit(6)
     print(f"Loading '{all_carryitems_xml_path}'...")
     all_carryitems = list(_load_xml(all_carryitems_xml_path, "carry_item", carryitems_paths))
-    for i, carryitem in enumerate(all_carryitems):
-        print(f"carryitem index {i}: {carryitem}")
+    print(f"Package '{pkg.name}' loads {len(all_carryitems)} carry items!")
+    # for i, carryitem in enumerate(all_carryitems):
+    #     print(f"carryitem index {i}: {carryitem}")
 
-    # todo: write out all the items to a csv itemdefs
-
+    # write out all the items to a csv itemdefs
+    csv_path = pathlib.Path(__file__).parent / f"{prefix}items.csv"
+    print(f"Writing items to '{csv_path}'...")
+    with csv_path.open("w", encoding="utf-8", newline="") as csv_file:
+        writer = csv.writer(csv_file, quoting=csv.QUOTE_NONNUMERIC)
+        # write csv header row
+        writer.writerow(["class", "index", "key"])
+        # write weapons
+        for i, weapon_key in enumerate(all_weapons):
+            # weapons are class 0
+            writer.writerow([0, i, weapon_key])
+        # write projectiles/throwables (start at index 50 for some reason XD)
+        for i, projectile_key in enumerate(all_projectiles, 50):
+            # projectiles are class 1
+            writer.writerow([1, i, projectile_key])
+        # write carry items
+        for i, carryitem_key in enumerate(all_carryitems):
+            # carryitems are class 3
+            writer.writerow([3, i, carryitem_key])

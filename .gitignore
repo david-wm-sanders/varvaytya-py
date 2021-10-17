@@ -7,5 +7,6 @@ profiles.db
 *.profile
 *.person
 *.7z
+*.csv
 
 app/routes/data.xml
