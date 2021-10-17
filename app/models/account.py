@@ -5,7 +5,7 @@ from app import db
 
 
 # todo: idea!: split apart world (realm independent) and realm dependent (items etc)
-class Account(db.Model):
+class BasicAccount(db.Model):
     # when get_profile encounters a new username (that validates)
     # it populates hash, realm_id, username, rid and returns a sparser
     # <profile> to the game server to confirm that the account <person>

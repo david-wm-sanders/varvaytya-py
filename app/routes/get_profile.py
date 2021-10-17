@@ -4,7 +4,7 @@ import xml.etree.ElementTree as XmlET
 from flask import request
 
 from app import app, db
-from app.models import Account
+from app.models import BasicAccount
 from app.exc import EnlistdValidationError, DigestNotSupportedError, GetMissingArgError, \
                     HashNotIntError, RealmNotFoundError, RealmDigestIncorrectError, \
                     AccountNotFoundError, RidIncorrectError
@@ -38,7 +38,7 @@ def _get_request_args() -> tuple[int, str, str, str, str]:
 
 
 def _create_account(realm_id: int, hash_: int, username: str, rid: str):
-    account = Account(realm_id=realm_id, hash=hash_, username=username, rid=rid)
+    account = BasicAccount(realm_id=realm_id, hash=hash_, username=username, rid=rid)
     db.session.add(account)
     db.session.commit()
     # make the init profile for the game server
@@ -58,7 +58,7 @@ def get_profile():
         realm = get_realm(realm_name, realm_digest)
         # todo: get the realm item id map
         # todo: handle the edge case where the game server can make a 2nd get after map load, before any set
-        account: Account = get_account(realm.id, hash_, rid)
+        account: BasicAccount = get_account(realm.id, hash_, rid)
         account.last_get_at = datetime.now()
         db.session.commit()
         return account.as_xml_data()

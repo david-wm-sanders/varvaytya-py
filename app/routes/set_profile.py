@@ -6,7 +6,7 @@ from sqlalchemy.orm.exc import NoResultFound
 from flask import request, abort
 
 from app import app, db
-from app.models import Realm, Account
+from app.models import Realm, BasicAccount
 from app.dc import PlayerDc
 
 
@@ -44,7 +44,7 @@ def set_profile():
 
         # check hash in db for realm and rid matches for hash
         try:
-            account = Account.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
+            account = BasicAccount.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
         except NoResultFound as e:
             # this account doesn't exist
             print(f"set profile error: account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
@@ -105,7 +105,7 @@ def set_profile():
         updated_accounts.append(pm)
 
     print(f"set profile: updating {len(updated_accounts)} players...")
-    db.session.bulk_update_mappings(Account, updated_accounts)
+    db.session.bulk_update_mappings(BasicAccount, updated_accounts)
     print(f"set profile: committing updates...")
     db.session.commit()
 

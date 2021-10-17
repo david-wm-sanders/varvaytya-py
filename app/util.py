@@ -3,7 +3,7 @@ from sqlalchemy.exc import NoResultFound
 
 from app.exc import UsernameTooLongError, UsernameFormatError, RidLengthError, RidNotHexError, RealmDigestLengthError, \
     RealmDigestNotHexError, RealmDigestIncorrectError, RealmNotFoundError, RidIncorrectError, AccountNotFoundError
-from app.models import Realm, Account
+from app.models import Realm, BasicAccount
 
 
 def validate_username(username: str):
@@ -50,9 +50,9 @@ def get_realm(realm_name: str, realm_digest: str) -> Realm:
         raise RealmNotFoundError(f"Realm '{realm_name}' doesn't exist") from e
 
 
-def get_account(realm_id: int, hash_: int, rid: str) -> Account:
+def get_account(realm_id: int, hash_: int, rid: str) -> BasicAccount:
     try:
-        account = Account.query.filter_by(hash=hash_, realm_id=realm_id).one()
+        account = BasicAccount.query.filter_by(hash=hash_, realm_id=realm_id).one()
         # check rid here and raise exception if doesn't match
         # todo: make consistent time?
         if rid == account.rid:
