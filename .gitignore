@@ -3,7 +3,7 @@ venv/
 __pycache__/
 
 notes.md
-profiles.db
+accounts.db
 *.profile
 *.person
 *.7z

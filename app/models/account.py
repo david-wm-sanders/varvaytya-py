@@ -14,6 +14,8 @@ class Account(db.Model):
     realm_id = db.Column(db.Integer, db.ForeignKey("realm.id"), primary_key=True)
     hash = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), index=True, nullable=False)
+    # sid placed here in the hope it will soon be sent with initial get and thus non-nullable
+    sid = db.Column(db.Integer, index=True)
     rid = db.Column(db.String(64), nullable=False)
     # access time related columns :clock:
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
@@ -23,7 +25,6 @@ class Account(db.Model):
     # the following columns are optional and will be populated
     # when set_profile receives data to save for the (hash, realm_id)
     # basic profile stuff:
-    sid = db.Column(db.Integer, index=True)
     game_version = db.Column(db.Integer)
     squad_tag = db.Column(db.String(3))
     color = db.Column(db.String(16))
