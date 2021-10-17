@@ -166,11 +166,12 @@ if __name__ == '__main__':
     # print(f"{weapon_paths=}\n{projectile_paths=}\n{carryitems_paths=}")
 
     # ask user if there is a {prefix}all_*.*
-    _prefix_default = f"{pkg.name}_"
-    _prefix = input(f"> [prefix?]all_{{weapons,throwables,carry_items}}.xml, [default: {_prefix_default}]: ")
+    # _prefix_default = f"{pkg.name}_"
+    # _prefix = input(f"> [prefix?]all_{{weapons,throwables,carry_items}}.xml, [default: {_prefix_default}]: ")
+    prefix = input(f"> [prefix?]all_{{weapons,throwables,carry_items}}.xml, default none: ")
     # print(f"{prefix=}")
     # todo: fix this hack for dev
-    prefix = _prefix if _prefix else _prefix_default
+    # prefix = _prefix if _prefix else _prefix_default
 
     # load {prefix}all_weapons.xml, parse as xml, extract a list of weapon keys
     all_weapons_xml_path = pkg.path / f"weapons/{prefix}all_weapons.xml"
