@@ -1,0 +1,231 @@
+<data>
+    <player hash='833276391' digest='' rid='16E4BB8A1A456E94B08B874A6878F767433FA8ED5F49EA108BFCFB3072161992'>
+        <person max_authority_reached="100.000000" authority="100.000000" job_points="863464.000000" faction="0"
+                name="Henry Harris" version="147" alive="1" soldier_group_id="0" soldier_group_name="default"
+                block="8 13" squad_size_setting="2">
+            <order moving="1" target="577.267 0 837.569" class="2"/>
+            <item slot="0" index="51" amount="0" key="xm25.weapon"/>
+            <item slot="1" index="6" amount="0" key="m72_law.weapon"/>
+            <item slot="2" index="50" amount="0" key="stun_grenade.projectile"/>
+            <item slot="4" index="-1" amount="0" key=""/>
+            <item slot="5" index="19" amount="0" key="vest3_2"/>
+            <stash>
+                <item class="0" index="132" key="mx4_storm.weapon"/>
+                <item class="0" index="133" key="bizon.weapon"/>
+                <item class="0" index="160" key="gl06.weapon"/>
+                <item class="0" index="161" key="rgm40.weapon"/>
+                <item class="0" index="155" key="blowgun.weapon"/>
+                <item class="0" index="198" key="ak47_w_gp25.weapon"/>
+                <item class="0" index="200" key="g36_w_ag36.weapon"/>
+                <item class="0" index="167" key="suomi.weapon"/>
+                <item class="0" index="181" key="doublebarrel.weapon"/>
+                <item class="0" index="124" key="fal_bayonet.weapon"/>
+                <item class="0" index="156" key="g11.weapon"/>
+                <item class="0" index="194" key="kulakov.weapon"/>
+                <item class="0" index="192" key="rpd.weapon"/>
+                <item class="0" index="187" key="ash12.weapon"/>
+                <item class="0" index="185" key="ultimax.weapon"/>
+                <item class="0" index="157" key="pf98.weapon"/>
+                <item class="0" index="174" key="ninjato.weapon"/>
+                <item class="0" index="195" key="zweihander.weapon"/>
+                <item class="0" index="141" key="vest_repair.weapon"/>
+                <item class="0" index="122" key="dartgun.weapon"/>
+                <item class="0" index="168" key="squad_equipment_kit.weapon"/>
+                <item class="0" index="173" key="chicken_carrier.weapon"/>
+                <item class="0" index="189" key="mac10.weapon"/>
+                <item class="0" index="176" key="m320.weapon"/>
+                <item class="0" index="180" key="sabre.weapon"/>
+                <item class="0" index="139" key="hornet_resource.weapon"/>
+                <item class="0" index="140" key="squall.weapon"/>
+                <item class="0" index="125" key="golden_knife.weapon"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="112" key="emp_grenade.projectile"/>
+                <item class="1" index="89" key="stim.projectile"/>
+                <item class="1" index="89" key="stim.projectile"/>
+                <item class="1" index="89" key="stim.projectile"/>
+                <item class="1" index="89" key="stim.projectile"/>
+                <item class="1" index="89" key="stim.projectile"/>
+                <item class="1" index="72" key="dooms_hammer.projectile"/>
+                <item class="1" index="72" key="dooms_hammer.projectile"/>
+                <item class="1" index="72" key="dooms_hammer.projectile"/>
+                <item class="1" index="72" key="dooms_hammer.projectile"/>
+                <item class="1" index="72" key="dooms_hammer.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="98" key="noxe_flare.projectile"/>
+                <item class="1" index="98" key="noxe_flare.projectile"/>
+                <item class="1" index="98" key="noxe_flare.projectile"/>
+                <item class="1" index="98" key="noxe_flare.projectile"/>
+                <item class="1" index="98" key="noxe_flare.projectile"/>
+                <item class="1" index="98" key="noxe_flare.projectile"/>
+                <item class="1" index="99" key="flamer_tank_flare.projectile"/>
+                <item class="1" index="99" key="flamer_tank_flare.projectile"/>
+                <item class="1" index="99" key="flamer_tank_flare.projectile"/>
+                <item class="1" index="99" key="flamer_tank_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="69" key="aav7_flare.projectile"/>
+                <item class="1" index="69" key="aav7_flare.projectile"/>
+                <item class="3" index="83" key="costume_butcher.carry_item"/>
+                <item class="3" index="69" key="gift_box_community_1.carry_item"/>
+                <item class="3" index="69" key="gift_box_community_1.carry_item"/>
+                <item class="3" index="80" key="gift_box_community_2.carry_item"/>
+                <item class="3" index="80" key="gift_box_community_2.carry_item"/>
+                <item class="3" index="80" key="gift_box_community_2.carry_item"/>
+                <item class="3" index="80" key="gift_box_community_2.carry_item"/>
+                <item class="3" index="80" key="gift_box_community_2.carry_item"/>
+                <item class="3" index="87" key="balloon.carry_item"/>
+                <item class="3" index="82" key="lottery.carry_item"/>
+                <item class="3" index="82" key="lottery.carry_item"/>
+                <item class="1" index="67" key="wiesel_flare.projectile"/>
+                <item class="1" index="67" key="wiesel_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="100" key="sev90_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="97" key="m528_flare.projectile"/>
+                <item class="1" index="74" key="vulcan_acav_flare.projectile"/>
+                <item class="1" index="74" key="vulcan_acav_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="83" key="zjx19_flare.projectile"/>
+                <item class="1" index="73" key="guntruck_flare.projectile"/>
+                <item class="1" index="73" key="guntruck_flare.projectile"/>
+                <item class="1" index="73" key="guntruck_flare.projectile"/>
+                <item class="1" index="73" key="guntruck_flare.projectile"/>
+                <item class="1" index="68" key="banana_car_flare.projectile"/>
+                <item class="1" index="68" key="banana_car_flare.projectile"/>
+                <item class="1" index="87" key="kunai.projectile"/>
+                <item class="1" index="87" key="kunai.projectile"/>
+                <item class="3" index="18" key="vest3.carry_item"/>
+                <item class="3" index="59" key="costume_clown.carry_item"/>
+                <item class="3" index="70" key="costume_lizard.carry_item"/>
+                <item class="3" index="73" key="costume_banana.carry_item"/>
+                <item class="3" index="10" key="vest2.carry_item"/>
+                <item class="0" index="139" key="hornet_resource.weapon"/>
+                <item class="0" index="150" key="repair_crane_resource.weapon"/>
+                <item class="0" index="150" key="repair_crane_resource.weapon"/>
+                <item class="0" index="150" key="repair_crane_resource.weapon"/>
+                <item class="0" index="150" key="repair_crane_resource.weapon"/>
+                <item class="0" index="196" key="golden_mp5sd.weapon"/>
+                <item class="0" index="185" key="ultimax.weapon"/>
+                <item class="0" index="77" key="musket.weapon"/>
+                <item class="0" index="77" key="musket.weapon"/>
+                <item class="0" index="127" key="l30p.weapon"/>
+                <item class="0" index="127" key="l30p.weapon"/>
+                <item class="0" index="137" key="enforcer.weapon"/>
+                <item class="0" index="167" key="suomi.weapon"/>
+                <item class="0" index="154" key="compound_bow.weapon"/>
+                <item class="0" index="52" key="xm25_r.weapon"/>
+                <item class="3" index="19" key="vest3_2"/>
+                <item class="0" index="86" key="m202_flash.weapon"/>
+                <item class="0" index="86" key="m202_flash.weapon"/>
+                <item class="0" index="86" key="m202_flash.weapon"/>
+                <item class="0" index="86" key="m202_flash.weapon"/>
+                <item class="0" index="51" key="xm25.weapon"/>
+            </stash>
+            <backpack/>
+        </person>
+        <profile game_version="147" username="MAGIC HORSE" digest="" sid="53219938"
+                 rid="16E4BB8A1A456E94B08B874A6878F767433FA8ED5F49EA108BFCFB3072161992" squad_tag="" color="1 1 1 0">
+            <stats kills="0" deaths="0" time_played="1055.000000" player_kills="0" teamkills="0" longest_kill_streak="0"
+                   targets_destroyed="0" vehicles_destroyed="0" soldiers_healed="0" times_got_healed="0"
+                   distance_moved="152.360901" shots_fired="1" throwables_thrown="0" rank_progression="0.000000">
+                <monitor name="kill combo"/>
+                <monitor name="death streak" longest_death_streak="0"/>
+                <monitor/>
+                <monitor/>
+                <monitor/>
+                <monitor name="destroyer" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="saboteur" level="0">
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="tracker" level="0">
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="killer" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="stealth" level="0">
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="journal_deaths_at_start_trigger" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="difficulty_change_trigger" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_1st_map_victory" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_deaths" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_miniboss_kill" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_green_campaign_complete" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_gray_campaign_complete" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_brown_campaign_complete" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_darkcat_destroyed" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_roadkills" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_medic" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_enemy_weapon_delivered" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_prison_destroyed" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_blast_kills" level="0">
+                    <criteria count="0"/>
+                </monitor>
+                <monitor name="steam_shots_fired" level="0">
+                    <criteria count="1"/>
+                </monitor>
+                <monitor name="steam_antiair_destroyed" level="0">
+                    <criteria count="0"/>
+                </monitor>
+            </stats>
+        </profile>
+    </player>
+</data>
