@@ -11,3 +11,4 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
 from app import dc, routes, models, errors  # noqa
+from app import commands  # noqa

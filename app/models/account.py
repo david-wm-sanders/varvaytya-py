@@ -4,6 +4,7 @@ from xml.etree import ElementTree as XmlET
 from app import db
 
 
+# todo: idea!: split apart world (realm independent) and realm dependent (items etc)
 class Account(db.Model):
     # when get_profile encounters a new username (that validates)
     # it populates hash, realm_id, username, rid and returns a sparser
@@ -34,6 +35,7 @@ class Account(db.Model):
     job_points = db.Column(db.Float)
     faction = db.Column(db.Integer)
     name = db.Column(db.String(32))
+    # todo: may not even need to store alive for mp server contexts...
     alive = db.Column(db.Boolean)
     soldier_group_id = db.Column(db.Integer)
     soldier_group_name = db.Column(db.String(32))
