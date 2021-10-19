@@ -91,22 +91,25 @@ class BasicAccount(db.Model):
     rank_progression = db.Column(db.Float)
     # todo: stats monitors
 
-    def __repr__(self):
-        return f"<Account [{self.realm.name}] hash={self.hash} username='{self.username}'>"
+    def __str__(self):
+        return f"<BasicAccount [{self.realm.name}] hash={self.hash} username='{self.username}'>"
 
     def as_xml_data(self):
         # make xml get_profile response from player
-        # handle edge case where we can receive 2nd (or more) get for account before any set
-        if not self.last_set_at:
-            # make the init profile for the game server
-            # todo: make xmlet properly here!
-            init_profile = f"""<profile username="{self.username}" digest="" rid="{self.rid}" />"""
-            return f"""<data ok="1">{init_profile}</data>\n"""
-
         # make data element
         data_element = XmlET.Element("data", {"ok": "1"})
 
-        # make profile element
+        # handle edge case where we can receive 2nd (or more) get for account before any set
+        # last_set_at will be null until the first set occurs
+        if not self.last_set_at:
+            # make the init profile for the game server
+            profile_element = XmlET.Element("profile", {"username": self.username, "rid": self.rid})
+            data_element.append(profile_element)
+            xml_string = XmlET.tostring(data_element, encoding="unicode")
+            # we return the data with a \n - otherwise rwr_server will not like it xd
+            return f"{xml_string}\n"
+
+        # make full profile element
         profile_element = XmlET.Element("profile",
                                         {"game_version": str(self.game_version),
                                          "username": self.username,

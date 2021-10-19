@@ -41,10 +41,7 @@ def _create_account(realm_id: int, hash_: int, username: str, rid: str):
     account = BasicAccount(realm_id=realm_id, hash=hash_, username=username, rid=rid)
     db.session.add(account)
     db.session.commit()
-    # make the init profile for the game server
-    # todo: make xmlet properly here!
-    init_profile = f"""<profile username="{username}" digest="" rid="{rid}" />"""
-    return f"""<data ok="1">{init_profile}</data>\n"""
+    return account
 
 
 @app.route("/get_profile.php")
@@ -65,7 +62,8 @@ def get_profile():
     except AccountNotFoundError as e:
         # account not found, create and return init profile data
         print(f"Creating new account (hash={hash_}, username='{username}') in '{realm_name}'...")
-        return _create_account(realm.id, hash_, username, rid)
+        account = _create_account(realm.id, hash_, username, rid)
+        return account.as_xml_data()
     except (EnlistdValidationError, RealmNotFoundError,
             RealmDigestIncorrectError, RidIncorrectError) as e:
         # return fail response mit exception issue
