@@ -74,6 +74,7 @@ def set_profile():
         i = playerdc.person.items
         item0, item1, item2, item4, item5 = i[0], i[1], i[2], i[4], i[5]
         s = playerdc.profile.stats
+        # todo: create bitstrings for backpack and stash items
         pm = dict(hash=playerdc.hash_, realm_id=realm.id, last_set_at=datetime.now(),
                   # basic profile stuff
                   sid=playerdc.profile.sid, game_version=playerdc.profile.game_version,

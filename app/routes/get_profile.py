@@ -54,10 +54,10 @@ def get_profile():
         hash_, username, rid, realm_name, realm_digest = _get_request_args()
         realm = get_realm(realm_name, realm_digest)
         # todo: get the realm item id map
-        # todo: handle the edge case where the game server can make a 2nd get after map load, before any set
         account: BasicAccount = get_account(realm.id, hash_, rid)
         account.last_get_at = datetime.now()
         db.session.commit()
+        # will handle the edge case where the game server can make a 2nd get after map load, before any set
         return account.as_xml_data()
     except AccountNotFoundError as e:
         # account not found, create and return init profile data
