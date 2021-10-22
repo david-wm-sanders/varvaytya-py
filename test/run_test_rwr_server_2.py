@@ -12,7 +12,7 @@ except ImportError:
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
 PKG_CFG = SCRIPT_DIR / "package_config.xml"
-AS_SCRIPT = SCRIPT_DIR / "start_enlistd_invasion.as"
+AS_SCRIPT = SCRIPT_DIR / "start_enlistd_invasion_2.as"
 RWR_ROOT = pathlib.Path(r"C:\Program Files (x86)\Steam\steamapps\common\RunningWithRifles")
 RWR_SERV = RWR_ROOT / "rwr_server.exe"
 PKGS_ROOT = RWR_ROOT / "media/packages"
