@@ -4,11 +4,11 @@ import xml.etree.ElementTree as XmlET
 from flask import request
 
 from app import app, db
-from app.models import BasicAccount
+from app.models import World, Realm, Player, Account
 from app.exc import EnlistdValidationError, DigestNotSupportedError, GetMissingArgError, \
                     HashNotIntError, RealmNotFoundError, RealmDigestIncorrectError, \
                     AccountNotFoundError, RidIncorrectError
-from app.util import validate_username, validate_rid, validate_realm_digest, get_realm, get_account
+from app.util import validate_username, validate_rid, validate_realm_digest, get_realm  # get_account
 
 
 def _get_request_args() -> tuple[int, str, str, str, str]:
@@ -37,11 +37,11 @@ def _get_request_args() -> tuple[int, str, str, str, str]:
     return hash_, username, rid, realm_name, realm_digest
 
 
-def _create_account(realm_id: int, hash_: int, username: str, rid: str):
-    account = BasicAccount(realm_id=realm_id, hash=hash_, username=username, rid=rid)
-    db.session.add(account)
-    db.session.commit()
-    return account
+# def _create_account(realm_id: int, hash_: int, username: str, rid: str):
+#     account = BasicAccount(realm_id=realm_id, hash=hash_, username=username, rid=rid)
+#     db.session.add(account)
+#     db.session.commit()
+#     return account
 
 
 @app.route("/get_profile.php")
@@ -53,17 +53,19 @@ def get_profile():
     try:
         hash_, username, rid, realm_name, realm_digest = _get_request_args()
         realm = get_realm(realm_name, realm_digest)
+        # todo: get realm.world here
         # todo: get the realm item id map
-        account: BasicAccount = get_account(realm.id, hash_, rid)
+        # todo: reimplement get_account
+        # account: BasicAccount = get_account(realm.id, hash_, rid)
         account.last_get_at = datetime.now()
         db.session.commit()
         # will handle the edge case where the game server can make a 2nd get after map load, before any set
-        return account.as_xml_data()
+        # return account.as_xml_data()
     except AccountNotFoundError as e:
         # account not found, create and return init profile data
         print(f"Creating new account (hash={hash_}, username='{username}') in '{realm_name}'...")
-        account = _create_account(realm.id, hash_, username, rid)
-        return account.as_xml_data()
+        # account = _create_account(realm.id, hash_, username, rid)
+        # return account.as_xml_data()
     except (EnlistdValidationError, RealmNotFoundError,
             RealmDigestIncorrectError, RidIncorrectError) as e:
         # return fail response mit exception issue

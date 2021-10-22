@@ -44,13 +44,12 @@ def set_profile():
 
         # check hash in db for realm and rid matches for hash
         try:
+            # todo: reimplement using new world account model
             account = BasicAccount.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
         except NoResultFound as e:
             # this account doesn't exist
             print(f"set profile error: account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
             continue
-
-        # print(f"{account=}")
 
         # more validations:
         # check rid
@@ -110,4 +109,5 @@ def set_profile():
     print(f"set profile: committing updates...")
     db.session.commit()
 
+    # todo: return proper response here...
     return ""

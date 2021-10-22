@@ -4,11 +4,18 @@ import pathlib
 import click
 
 from app import app, db
-from app.models import ItemGroup, ItemDef, Realm
+from app.models import World, ItemGroup, ItemDef, Realm
 
 
-# todo: write flask command to create ItemGroup - loading item defs from csv created by index_items.py
-# todo: write flask command to create Realm - requiring name, digest, and itemgroup id
+@app.cli.command("create-world")
+@click.argument("name", default="valhalla")
+@click.argument("summation_mode", default="xp+rp")
+def create_world(name: str, summation_mode: str):
+    print(f"Creating world '{name}' [summation_mode='{summation_mode}']...")
+    world = World(name=name, summation_mode=summation_mode)
+    db.session.add(world)
+    db.session.commit()
+    print(f"Created world '{name}' [{world.id}]!")
 
 
 @app.cli.command("create-items")
@@ -37,7 +44,7 @@ def create_items(name, items_csv_path, storage_width):
     print(f"Created item group '{name}' [{ig.id}]!")
 
     print("Constructing item definitions...")
-    itemdefs = [{"itemgroup_id": ig.id, "id": x,
+    itemdefs = [{"item_group_id": ig.id, "id": x,
                  "cls": item[0], "dex": item[1], "key": item[2]} for x, item
                 in enumerate(items)]
     print("Bulk inserting item definitions...")
@@ -48,8 +55,18 @@ def create_items(name, items_csv_path, storage_width):
 
 
 @app.cli.command("_delete_ig")
+@click.argument("item_group_id", type=int, required=True)
+def _delete_ig(item_group_id: int):
+    db.session.query(ItemGroup).filter_by(id=item_group_id).delete()
+    db.session.query(ItemDef).filter_by(itemgroup_id=item_group_id).delete()
+    db.session.commit()
+
+
+@app.cli.command("create-realm")
+@click.argument("name", required=True)
+@click.argument("digest", required=True)
 @click.argument("itemgroup_id", type=int, required=True)
-def _delete_ig(itemgroup_id: int):
-    db.session.query(ItemGroup).filter_by(id=itemgroup_id).delete()
-    db.session.query(ItemDef).filter_by(itemgroup_id=itemgroup_id).delete()
+def create_realm(name, digest, item_group_id):
+    r = Realm(name=name, digest=digest, itemgroup_id=item_group_id)
+    db.session.add(r)
     db.session.commit()
