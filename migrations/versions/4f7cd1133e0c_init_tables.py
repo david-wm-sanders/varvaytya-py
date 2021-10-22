@@ -1,8 +1,8 @@
 """init tables
 
-Revision ID: b91b18b5e27a
+Revision ID: 4f7cd1133e0c
 Revises: 
-Create Date: 2021-10-18 05:53:14.835576
+Create Date: 2021-10-22 03:31:42.091784
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'b91b18b5e27a'
+revision = '4f7cd1133e0c'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -25,6 +25,24 @@ def upgrade():
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('name')
     )
+    op.create_table('player',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('hash', sa.Integer(), nullable=False),
+    sa.Column('username', sa.Integer(), nullable=False),
+    sa.Column('sid', sa.Integer(), nullable=True),
+    sa.Column('rid', sa.String(length=64), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('hash')
+    )
+    op.create_index(op.f('ix_player_sid'), 'player', ['sid'], unique=False)
+    op.create_index(op.f('ix_player_username'), 'player', ['username'], unique=True)
+    op.create_table('world',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=32), nullable=False),
+    sa.Column('summation_mode', sa.String(length=32), nullable=True),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_index(op.f('ix_world_name'), 'world', ['name'], unique=True)
     op.create_table('item_def',
     sa.Column('itemgroup_id', sa.Integer(), nullable=False),
     sa.Column('id', sa.Integer(), nullable=False),
@@ -43,6 +61,70 @@ def upgrade():
     sa.PrimaryKeyConstraint('id')
     )
     op.create_index(op.f('ix_realm_name'), 'realm', ['name'], unique=True)
+    op.create_table('realm2',
+    sa.Column('world_id', sa.Integer(), nullable=False),
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('name', sa.String(length=32), nullable=False),
+    sa.Column('digest', sa.String(length=64), nullable=False),
+    sa.Column('itemgroup_id', sa.Integer(), nullable=False),
+    sa.ForeignKeyConstraint(['itemgroup_id'], ['item_group.id'], ),
+    sa.ForeignKeyConstraint(['world_id'], ['world.id'], ),
+    sa.PrimaryKeyConstraint('world_id', 'id')
+    )
+    op.create_index(op.f('ix_realm2_name'), 'realm2', ['name'], unique=True)
+    op.create_table('account',
+    sa.Column('world_id', sa.Integer(), nullable=False),
+    sa.Column('realm_id', sa.Integer(), nullable=False),
+    sa.Column('player_id', sa.Integer(), nullable=False),
+    sa.Column('created_at', sa.DateTime(), nullable=False),
+    sa.Column('last_get_at', sa.DateTime(), nullable=False),
+    sa.Column('last_set_at', sa.DateTime(), nullable=True),
+    sa.Column('game_version', sa.Integer(), nullable=True),
+    sa.Column('squad_tag', sa.String(length=3), nullable=True),
+    sa.Column('color', sa.String(length=16), nullable=True),
+    sa.Column('max_authority_reached', sa.Float(), nullable=True),
+    sa.Column('authority', sa.Float(), nullable=True),
+    sa.Column('job_points', sa.Float(), nullable=True),
+    sa.Column('faction', sa.Integer(), nullable=True),
+    sa.Column('name', sa.String(length=32), nullable=True),
+    sa.Column('alive', sa.Boolean(), nullable=True),
+    sa.Column('soldier_group_id', sa.Integer(), nullable=True),
+    sa.Column('soldier_group_name', sa.String(length=32), nullable=True),
+    sa.Column('squad_size_setting', sa.Integer(), nullable=True),
+    sa.Column('item0_index', sa.Integer(), nullable=True),
+    sa.Column('item0_amount', sa.Integer(), nullable=True),
+    sa.Column('item0_key', sa.String(length=32), nullable=True),
+    sa.Column('item1_index', sa.Integer(), nullable=True),
+    sa.Column('item1_amount', sa.Integer(), nullable=True),
+    sa.Column('item1_key', sa.String(length=32), nullable=True),
+    sa.Column('item2_index', sa.Integer(), nullable=True),
+    sa.Column('item2_amount', sa.Integer(), nullable=True),
+    sa.Column('item2_key', sa.String(length=32), nullable=True),
+    sa.Column('item4_index', sa.Integer(), nullable=True),
+    sa.Column('item4_amount', sa.Integer(), nullable=True),
+    sa.Column('item4_key', sa.String(length=32), nullable=True),
+    sa.Column('item5_index', sa.Integer(), nullable=True),
+    sa.Column('item5_amount', sa.Integer(), nullable=True),
+    sa.Column('item5_key', sa.String(length=32), nullable=True),
+    sa.Column('kills', sa.Integer(), nullable=True),
+    sa.Column('deaths', sa.Integer(), nullable=True),
+    sa.Column('time_played', sa.Integer(), nullable=True),
+    sa.Column('player_kills', sa.Integer(), nullable=True),
+    sa.Column('teamkills', sa.Integer(), nullable=True),
+    sa.Column('longest_kill_streak', sa.Integer(), nullable=True),
+    sa.Column('targets_destroyed', sa.Integer(), nullable=True),
+    sa.Column('vehicles_destroyed', sa.Integer(), nullable=True),
+    sa.Column('soldiers_healed', sa.Integer(), nullable=True),
+    sa.Column('times_got_healed', sa.Integer(), nullable=True),
+    sa.Column('distance_moved', sa.Float(), nullable=True),
+    sa.Column('shots_fired', sa.Integer(), nullable=True),
+    sa.Column('throwables_thrown', sa.Integer(), nullable=True),
+    sa.Column('rank_progression', sa.Float(), nullable=True),
+    sa.ForeignKeyConstraint(['player_id'], ['player.id'], ),
+    sa.ForeignKeyConstraint(['realm_id'], ['realm2.id'], ),
+    sa.ForeignKeyConstraint(['world_id'], ['world.id'], ),
+    sa.PrimaryKeyConstraint('world_id', 'realm_id', 'player_id')
+    )
     op.create_table('basic_account',
     sa.Column('realm_id', sa.Integer(), nullable=False),
     sa.Column('hash', sa.Integer(), nullable=False),
@@ -107,8 +189,16 @@ def downgrade():
     op.drop_index(op.f('ix_basic_account_username'), table_name='basic_account')
     op.drop_index(op.f('ix_basic_account_sid'), table_name='basic_account')
     op.drop_table('basic_account')
+    op.drop_table('account')
+    op.drop_index(op.f('ix_realm2_name'), table_name='realm2')
+    op.drop_table('realm2')
     op.drop_index(op.f('ix_realm_name'), table_name='realm')
     op.drop_table('realm')
     op.drop_table('item_def')
+    op.drop_index(op.f('ix_world_name'), table_name='world')
+    op.drop_table('world')
+    op.drop_index(op.f('ix_player_username'), table_name='player')
+    op.drop_index(op.f('ix_player_sid'), table_name='player')
+    op.drop_table('player')
     op.drop_table('item_group')
     # ### end Alembic commands ###
