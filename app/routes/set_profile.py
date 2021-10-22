@@ -87,7 +87,7 @@ def set_profile():
                   soldier_group_name=playerdc.person.soldier_group_name,
                   squad_size_setting=playerdc.person.squad_size_setting,
                   squad_config_index=playerdc.person.squad_config_index,
-                  blockx=None, blocky=None, order_moving=None, order_target=None, order_class=None,
+                  # blockx=None, blocky=None, order_moving=None, order_target=None, order_class=None,
                   item0_index=item0.index, item0_amount=item0.amount, item0_key=item0.key,
                   item1_index=item1.index, item1_amount=item1.amount, item1_key=item1.key,
                   item2_index=item2.index, item2_amount=item2.amount, item2_key=item2.key,
