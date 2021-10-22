@@ -9,3 +9,6 @@ class World(db.Model):
     name = db.Column(db.String(32), index=True, unique=True, nullable=False)
     summation_mode = db.Column(db.String(16))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
+
+    # set up some sqlalchemy ORM relationships
+    realms = db.relationship("Realm", backref="world", lazy="dynamic")

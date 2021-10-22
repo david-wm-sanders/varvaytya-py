@@ -49,12 +49,14 @@ def get_profile():
     print(f"get_profile req args: {request.args}")
 
     hash_, username, rid, realm_name, realm_digest = None, None, None, None, None
-    realm, account = None, None
+    realm, account = None, None  # noqa
     try:
         hash_, username, rid, realm_name, realm_digest = _get_request_args()
-        realm = get_realm(realm_name, realm_digest)
+        realm: Realm = get_realm(realm_name, realm_digest)
+        world = realm.world
         # todo: get realm.world here
         # todo: get the realm item id map
+        # todo: write get_player
         # todo: reimplement get_account
         # account: BasicAccount = get_account(realm.id, hash_, rid)
         account.last_get_at = datetime.now()
@@ -71,4 +73,34 @@ def get_profile():
         # return fail response mit exception issue
         print(f"Error: {e}")
         # todo: return codes dependent on error?
-        return f"""<data ok="0" issue="{e.issue}"></data>\n"""
+        return f"""<data ok="0" issue="{e.issue}"></data>\n"""\
+
+
+# @app.route("/get_profile.php")
+# def get_profile():
+#     print(f"get_profile req args: {request.args}")
+#
+#     hash_, username, rid, realm_name, realm_digest = None, None, None, None, None
+#     realm, account = None, None
+#     try:
+#         hash_, username, rid, realm_name, realm_digest = _get_request_args()
+#         realm = get_realm(realm_name, realm_digest)
+#         # todo: get realm.world here
+#         # todo: get the realm item id map
+#         # todo: reimplement get_account
+#         # account: BasicAccount = get_account(realm.id, hash_, rid)
+#         account.last_get_at = datetime.now()
+#         db.session.commit()
+#         # will handle the edge case where the game server can make a 2nd get after map load, before any set
+#         # return account.as_xml_data()
+#     except AccountNotFoundError as e:
+#         # account not found, create and return init profile data
+#         print(f"Creating new account (hash={hash_}, username='{username}') in '{realm_name}'...")
+#         # account = _create_account(realm.id, hash_, username, rid)
+#         # return account.as_xml_data()
+#     except (EnlistdValidationError, RealmNotFoundError,
+#             RealmDigestIncorrectError, RidIncorrectError) as e:
+#         # return fail response mit exception issue
+#         print(f"Error: {e}")
+#         # todo: return codes dependent on error?
+#         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
