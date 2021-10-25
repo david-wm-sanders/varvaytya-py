@@ -63,12 +63,12 @@ def _delete_ig(item_group_id: int):
 
 
 @app.cli.command("create-realm")
-@click.argument("world_id", type=int, required=True)
-@click.argument("realm_id", type=int, required=True)
+# @click.argument("realm_id", type=int, required=True)
 @click.argument("name", required=True)
 @click.argument("digest", required=True)
+@click.argument("world_id", type=int, required=True)
 @click.argument("item_group_id", type=int, required=True)
-def create_realm(world_id, realm_id, name, digest, item_group_id):
-    r = Realm(world_id=world_id, id=realm_id, name=name, digest=digest, item_group_id=item_group_id)
+def create_realm(name, digest, world_id, item_group_id):
+    r = Realm(world_id=world_id, name=name, digest=digest, item_group_id=item_group_id)
     db.session.add(r)
     db.session.commit()
