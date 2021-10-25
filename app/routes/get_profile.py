@@ -70,6 +70,7 @@ def get_profile():
     try:
         # todo: hack! sid not passed and not checked here until it becomes sent
         player: Player = get_player(hash_, username, 0, rid)
+        # todo: sum the player's accounts in realm.world_id
     except PlayerNotFound:
         # enlist a new player!
         player = Player(hash=hash_, username=username, rid=rid)
@@ -87,6 +88,10 @@ def get_profile():
         account.last_get_at = datetime.now()
         db.session.commit()
         # will handle the edge case where the game server can make a 2nd get after map load, before any set
+        # todo: sum accounts in world
+        # todo: implement account.as_dict()
+        # print(account.as_dict())
+        # todo: change to construct xml from dict? or pass summation info to as_xml_data??
         return account.as_xml_data()
     except AccountNotFoundError:
         # account not found, create and return init profile data
@@ -94,4 +99,5 @@ def get_profile():
               f"for '{username}' in '{realm_name}'...")
         # account = _create_account(realm.id, hash_, username, rid)
         account = _create_account(realm.world_id, realm.id, player.id)
+        # todo: sum other accounts?
         return account.as_xml_data()
