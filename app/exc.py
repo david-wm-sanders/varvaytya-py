@@ -50,6 +50,10 @@ class RealmDigestIncorrectError(EnlistdException):
     issue = "realm digest incorrect"
 
 
+class PlayerNotFound(EnlistdException):
+    issue = "player not found"
+
+
 class AccountNotFoundError(EnlistdException):
     issue = "account not found"
 

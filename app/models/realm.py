@@ -12,4 +12,6 @@ class Realm(db.Model):
     item_group_id = db.Column(db.Integer, db.ForeignKey("item_group.id"), nullable=False)
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    # accounts = db.relationship("BasicAccount", backref="realm", lazy="dynamic")
+    # set up sqlalchemy ORM relationships
+    world = db.relationship("World", back_populates="realms")
+    accounts = db.relationship("Account", back_populates="realm", lazy="dynamic")

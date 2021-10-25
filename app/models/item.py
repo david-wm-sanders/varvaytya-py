@@ -11,7 +11,7 @@ class ItemGroup(db.Model):
 
 
 class ItemDef(db.Model):
-    itemgroup_id = db.Column(db.Integer, db.ForeignKey("item_group.id"), primary_key=True)
+    item_group_id = db.Column(db.Integer, db.ForeignKey("item_group.id"), primary_key=True)
     id = db.Column(db.Integer, primary_key=True)
     cls = db.Column(db.Integer, nullable=False)
     dex = db.Column(db.Integer, nullable=False)

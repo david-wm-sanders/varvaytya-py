@@ -10,5 +10,6 @@ class World(db.Model):
     summation_mode = db.Column(db.String(16))
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)
 
-    # set up some sqlalchemy ORM relationships
-    realms = db.relationship("Realm", backref="world", lazy="dynamic")
+    # set up sqlalchemy ORM relationships
+    realms = db.relationship("Realm", back_populates="world", lazy="dynamic")
+    accounts = db.relationship("Account", back_populates="world", lazy="dynamic")
