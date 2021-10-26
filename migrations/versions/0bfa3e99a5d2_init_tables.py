@@ -1,8 +1,8 @@
 """init tables
 
-Revision ID: 4a902d1787f1
+Revision ID: 0bfa3e99a5d2
 Revises: 
-Create Date: 2021-10-25 22:11:02.532114
+Create Date: 2021-10-26 03:19:33.393654
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '4a902d1787f1'
+revision = '0bfa3e99a5d2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -67,9 +67,9 @@ def upgrade():
     )
     op.create_index(op.f('ix_realm_name'), 'realm', ['name'], unique=True)
     op.create_table('account',
-    sa.Column('world_id', sa.Integer(), nullable=False),
     sa.Column('realm_id', sa.Integer(), nullable=False),
     sa.Column('player_id', sa.Integer(), nullable=False),
+    sa.Column('world_id', sa.Integer(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=False),
     sa.Column('last_get_at', sa.DateTime(), nullable=False),
     sa.Column('last_set_at', sa.DateTime(), nullable=True),
@@ -117,7 +117,7 @@ def upgrade():
     sa.ForeignKeyConstraint(['player_id'], ['player.id'], ),
     sa.ForeignKeyConstraint(['realm_id'], ['realm.id'], ),
     sa.ForeignKeyConstraint(['world_id'], ['world.id'], ),
-    sa.PrimaryKeyConstraint('world_id', 'realm_id', 'player_id')
+    sa.PrimaryKeyConstraint('realm_id', 'player_id')
     )
     # ### end Alembic commands ###
 

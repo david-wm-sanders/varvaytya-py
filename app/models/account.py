@@ -8,14 +8,14 @@ class Account(db.Model):
     # an account combines a person+profile in a single table
     # special magic handles summing et subtracting the accounts held by an individual
     # player in order for xp, rp, etc to be shared between the realms of a world
-    world_id = db.Column(db.Integer, db.ForeignKey("world.id"), primary_key=True)
-    world = db.relationship("World", back_populates="accounts")
-
     realm_id = db.Column(db.Integer, db.ForeignKey("realm.id"), primary_key=True)
     realm = db.relationship("Realm", back_populates="accounts")
 
     player_id = db.Column(db.Integer, db.ForeignKey("player.id"), primary_key=True)
     player = db.relationship("Player", back_populates="accounts")
+
+    world_id = db.Column(db.Integer, db.ForeignKey("world.id"))
+    world = db.relationship("World", back_populates="accounts")
 
     # access time related columns :clock:
     created_at = db.Column(db.DateTime, nullable=False, default=datetime.now)

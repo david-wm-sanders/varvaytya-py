@@ -83,7 +83,7 @@ def get_profile():
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     try:
-        account: Account = get_account(realm.world_id, realm.id, player.id)
+        account: Account = get_account(realm.id, player.id)
         # todo: get the realm item id map
         account.last_get_at = datetime.now()
         db.session.commit()
@@ -95,7 +95,7 @@ def get_profile():
         return account.as_xml_data()
     except AccountNotFoundError:
         # account not found, create and return init profile data
-        print(f"Creating new account ({realm.world_id}, {realm.id}, {player.id}) "
+        print(f"Creating new account ({realm.id}, {player.id}) "
               f"for '{username}' in '{realm_name}'...")
         # account = _create_account(realm.id, hash_, username, rid)
         account = _create_account(realm.world_id, realm.id, player.id)

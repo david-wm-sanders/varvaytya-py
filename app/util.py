@@ -51,6 +51,7 @@ def get_realm(realm_name: str, realm_digest: str) -> Realm:
         raise RealmNotFoundError(f"Realm '{realm_name}' doesn't exist") from e
 
 
+# todo: change get_* to use session.get
 def get_player(hash_: int, username: str, sid: int, rid: str) -> Player:
     try:
         player = Player.query.filter_by(hash=hash_).one()
@@ -62,9 +63,9 @@ def get_player(hash_: int, username: str, sid: int, rid: str) -> Player:
         raise PlayerNotFound(f"Player ({hash_}, {username}) not found") from e
 
 
-def get_account(world_id: int, realm_id: int, player_id: int) -> Account:
+def get_account(realm_id: int, player_id: int) -> Account:
     try:
-        account = Account.query.filter_by(world_id=world_id, realm_id=realm_id, player_id=player_id).one()
+        account = Account.query.filter_by(realm_id=realm_id, player_id=player_id).one()
         return account
     except NoResultFound as e:
-        raise AccountNotFoundError(f"Account ({world_id}, {realm_id}, {player_id}) not found") from e
+        raise AccountNotFoundError(f"Account ({realm_id}, {player_id}) not found") from e
