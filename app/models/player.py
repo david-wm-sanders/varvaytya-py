@@ -4,6 +4,7 @@ from app import db
 
 class Player(db.Model):
     # the same player can exist in multiple worlds/realms
+    # todo: make hash the primary key
     id = db.Column(db.Integer, primary_key=True)
     hash = db.Column(db.Integer, unique=True, nullable=False)
     username = db.Column(db.String(32), index=True, unique=True, nullable=False)
