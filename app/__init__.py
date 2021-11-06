@@ -1,4 +1,4 @@
-"""enlistd application init."""
+"""varvaytya application init."""
 from flask import Flask
 from .config import Config
 

@@ -13,7 +13,7 @@ from app.util import validate_username, validate_rid, validate_realm_digest, \
                      get_realm, get_player, get_account
 
 
-def _get_request_args() -> tuple[int, str, str, str, str]:
+def _validate_get_request_args() -> tuple[int, str, str, str, str]:
     # get the arguments
     digest = request.args.get("digest")
     hash_, username = request.args.get("hash"), request.args.get("username")
@@ -39,8 +39,8 @@ def _get_request_args() -> tuple[int, str, str, str, str]:
     return hash_, username, rid, realm_name, realm_digest
 
 
-def _create_account(world_id: int, realm_id: int, player_id: int):
-    account = Account(world_id=world_id, realm_id=realm_id, player_id=player_id)
+def _create_account(world_id: int, realm_id: int, player_hash: int):
+    account = Account(realm_id=realm_id, player_hash=player_hash, world_id=world_id)
     db.session.add(account)
     db.session.commit()
     return account
@@ -52,10 +52,10 @@ def get_profile():
     print(f"get_profile req args: {request.args}")
     # get the processed+validated request args
     try:
-        hash_, username, rid, realm_name, realm_digest = _get_request_args()
+        hash_, username, rid, realm_name, realm_digest = _validate_get_request_args()
     except EnlistdValidationError as e:
         # todo: logging!
-        print(f"Error: {e}")
+        print(f"[get] Error: {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the realm, failing with issue if realm not found or realm digest doesn't match
@@ -63,7 +63,7 @@ def get_profile():
         realm: Realm = get_realm(realm_name, realm_digest)
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
         # todo: logging!
-        print(f"Error: {e}")
+        print(f"[get] Error: {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the player
@@ -78,12 +78,12 @@ def get_profile():
         db.session.commit()
     except RidIncorrectError as e:
         # return fail response mit exception issue
-        print(f"Error: {e}")
+        print(f"[get] Error: {e}")
         # todo: return codes dependent on error?
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     try:
-        account: Account = get_account(realm.id, player.id)
+        account: Account = get_account(realm.id, player.hash)
         # todo: get the realm item id map
         account.last_get_at = datetime.now()
         db.session.commit()
@@ -95,9 +95,9 @@ def get_profile():
         return account.as_xml_data()
     except AccountNotFoundError:
         # account not found, create and return init profile data
-        print(f"Creating new account ({realm.id}, {player.id}) "
+        print(f"Creating new account ({realm.id}, {player.hash}) "
               f"for '{username}' in '{realm_name}'...")
         # account = _create_account(realm.id, hash_, username, rid)
-        account = _create_account(realm.world_id, realm.id, player.id)
+        account = _create_account(realm.world_id, realm.id, player.hash)
         # todo: sum other accounts?
         return account.as_xml_data()

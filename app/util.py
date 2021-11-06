@@ -1,6 +1,7 @@
 import re
 from sqlalchemy.exc import NoResultFound
 
+from app import db
 from app.exc import UsernameTooLongError, UsernameFormatError, RidLengthError, RidNotHexError, RealmDigestLengthError, \
     RealmDigestNotHexError, RealmDigestIncorrectError, RealmNotFoundError, RidIncorrectError, \
     PlayerNotFound, AccountNotFoundError
@@ -40,6 +41,8 @@ def validate_realm_digest(realm_digest: str):
 
 
 def get_realm(realm_name: str, realm_digest: str) -> Realm:
+    # todo: realm primary key should the the name??
+    # this would be slower for filter_by perhaps but with session.get identity map faster maybe?
     try:
         realm = Realm.query.filter_by(name=realm_name).one()
         # todo: make consistent time?
@@ -51,23 +54,19 @@ def get_realm(realm_name: str, realm_digest: str) -> Realm:
         raise RealmNotFoundError(f"Realm '{realm_name}' doesn't exist") from e
 
 
-# todo: change get_* to use session.get
 def get_player(hash_: int, username: str, sid: int, rid: str) -> Player:
-    try:
-        # todo: the hash will need to be the primary key for session.get(Player, hash_) to work
-        # player = Player.query.filter_by(hash=hash_).one()
-        player = db.session.get(Player, hash_)
+    if player := db.session.get(Player, hash_):
+        # todo: ensure this comparison is constant-time
         if rid == player.rid:
             return player
         else:
             raise RidIncorrectError(f"Rid '{rid}' does not match the stored rid for '{player.username}'")
-    except NoResultFound as e:
-        raise PlayerNotFound(f"Player ({hash_}, {username}) not found") from e
+    else:
+        raise PlayerNotFound(f"Player '{username}' ({hash_}) not found")
 
 
-def get_account(realm_id: int, player_id: int) -> Account:
-    try:
-        account = Account.query.filter_by(realm_id=realm_id, player_id=player_id).one()
+def get_account(realm_id: int, player_hash: int) -> Account:
+    if account := db.session.get(Account, {"realm_id": realm_id, "player_hash": player_hash}):
         return account
-    except NoResultFound as e:
-        raise AccountNotFoundError(f"Account ({realm_id}, {player_id}) not found") from e
+    else:
+        raise AccountNotFoundError(f"Account ({realm_id}, {player_hash}) not found")
