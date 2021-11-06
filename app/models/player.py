@@ -5,8 +5,8 @@ from app import db
 class Player(db.Model):
     # the same player can exist in multiple worlds/realms
     # todo: make hash the primary key
-    id = db.Column(db.Integer, primary_key=True)
-    hash = db.Column(db.Integer, unique=True, nullable=False)
+    # id = db.Column(db.Integer, primary_key=True)
+    hash = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(32), index=True, unique=True, nullable=False)
     # sid is nullable until rwr server sends it to get_profile.php endpoint in future update
     sid = db.Column(db.Integer, index=True)

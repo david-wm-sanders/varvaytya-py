@@ -55,7 +55,8 @@ def get_realm(realm_name: str, realm_digest: str) -> Realm:
 def get_player(hash_: int, username: str, sid: int, rid: str) -> Player:
     try:
         # todo: the hash will need to be the primary key for session.get(Player, hash_) to work
-        player = Player.query.filter_by(hash=hash_).one()
+        # player = Player.query.filter_by(hash=hash_).one()
+        player = db.session.get(Player, hash_)
         if rid == player.rid:
             return player
         else:

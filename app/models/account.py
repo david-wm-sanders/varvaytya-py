@@ -11,7 +11,7 @@ class Account(db.Model):
     realm_id = db.Column(db.Integer, db.ForeignKey("realm.id"), primary_key=True)
     realm = db.relationship("Realm", back_populates="accounts")
 
-    player_id = db.Column(db.Integer, db.ForeignKey("player.id"), primary_key=True)
+    player_hash = db.Column(db.Integer, db.ForeignKey("player.hash"), primary_key=True)
     player = db.relationship("Player", back_populates="accounts")
 
     world_id = db.Column(db.Integer, db.ForeignKey("world.id"))
