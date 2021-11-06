@@ -12,11 +12,11 @@ except ImportError:
 
 SCRIPT_DIR = pathlib.Path(__file__).parent
 PKG_CFG = SCRIPT_DIR / "package_config.xml"
-AS_SCRIPT = SCRIPT_DIR / "start_enlistd_invasion.as"
+AS_SCRIPT = SCRIPT_DIR / "start_varvaytya_invasion.as"
 RWR_ROOT = pathlib.Path(r"C:\Program Files (x86)\Steam\steamapps\common\RunningWithRifles")
 RWR_SERV = RWR_ROOT / "rwr_server.exe"
 PKGS_ROOT = RWR_ROOT / "media/packages"
-TEST_PKG_DIR = PKGS_ROOT / "_enlistd_test_pkg"
+TEST_PKG_DIR = PKGS_ROOT / "_varvaytya_test_pkg"
 
 
 def _consume_prompt(proc):

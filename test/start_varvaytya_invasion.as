@@ -1,6 +1,6 @@
 // declare include paths
 #include "path://media/packages/vanilla/scripts"
-#include "path://media/packages/enlistd_test/scripts"
+#include "path://media/packages/varvaytya_test/scripts"
 
 #include "gamemode_invasion.as"
 
@@ -36,13 +36,13 @@ void main(dictionary@ inputData) {
     settings.m_testingToolsEnabled = true;
 
 
-    array<string> overlays = { "media/packages/invasion", "media/packages/_enlistd_test_pkg" };
+    array<string> overlays = { "media/packages/invasion", "media/packages/_varvaytya_test_pkg" };
     settings.m_overlayPaths = overlays;
 
     // HACK: [] don't automatically start a server for  testing
     settings.m_startServerCommand = """
 <command class='start_server'
-    server_name='incursion enlistd test'
+    server_name='incursion varvaytya test'
     server_port='1240'
     profile_server_url='127.0.0.1:5000/'
     realm='INCURSION'
