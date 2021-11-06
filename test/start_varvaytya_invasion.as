@@ -43,7 +43,7 @@ void main(dictionary@ inputData) {
     settings.m_startServerCommand = """
 <command class='start_server'
     server_name='incursion varvaytya test'
-    server_port='1240'
+    server_port='1234'
     profile_server_url='127.0.0.1:5000/'
     realm='INCURSION'
     realm_secret='ilmoittautua'
