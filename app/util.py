@@ -7,6 +7,8 @@ from app.exc import UsernameTooLongError, UsernameFormatError, RidLengthError, R
     PlayerNotFound, AccountNotFoundError
 from app.models import Realm, Player, Account
 
+from loguru import logger
+
 
 def validate_username(username: str):
     if len(username) > 32:

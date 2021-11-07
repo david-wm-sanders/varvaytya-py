@@ -12,6 +12,8 @@ from app.exc import EnlistdValidationError, DigestNotSupportedError, GetMissingA
 from app.util import validate_username, validate_rid, validate_realm_digest, \
                      get_realm, get_player, get_account
 
+from loguru import logger
+
 
 def _validate_get_request_args() -> tuple[int, str, str, str, str]:
     # get the arguments
@@ -39,7 +41,7 @@ def _validate_get_request_args() -> tuple[int, str, str, str, str]:
     return hash_, username, rid, realm_name, realm_digest
 
 
-def _create_account(world_id: int, realm_id: int, player_hash: int):
+def _create_account(realm_id: int, player_hash: int, world_id: int):
     account = Account(realm_id=realm_id, player_hash=player_hash, world_id=world_id)
     db.session.add(account)
     db.session.commit()
@@ -48,14 +50,13 @@ def _create_account(world_id: int, realm_id: int, player_hash: int):
 
 @app.route("/get_profile.php")
 def get_profile():
-    # todo: logging!
-    print(f"get_profile req args: {request.args}")
+    logger.debug(f"get_profile req args: {request.args}")
     # get the processed+validated request args
     try:
         hash_, username, rid, realm_name, realm_digest = _validate_get_request_args()
     except EnlistdValidationError as e:
         # todo: logging!
-        print(f"[get] Error: {e}")
+        logger.error(f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the realm, failing with issue if realm not found or realm digest doesn't match
@@ -63,7 +64,7 @@ def get_profile():
         realm: Realm = get_realm(realm_name, realm_digest)
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
         # todo: logging!
-        print(f"[get] Error: {e}")
+        logger.error(f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the player
@@ -73,12 +74,15 @@ def get_profile():
         # todo: sum the player's accounts in realm.world_id
     except PlayerNotFound:
         # enlist a new player!
+        logger.log(f"Enlisting '{username}' ({hash_})...")
         player = Player(hash=hash_, username=username, rid=rid)
         db.session.add(player)
         db.session.commit()
+        # todo: if player is new they will have no accounts, faster account creation logic here?
     except RidIncorrectError as e:
         # return fail response mit exception issue
-        print(f"[get] Error: {e}")
+        # todo: log at ALERT level
+        logger.error(f"[get] {e}")
         # todo: return codes dependent on error?
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
@@ -95,9 +99,9 @@ def get_profile():
         return account.as_xml_data()
     except AccountNotFoundError:
         # account not found, create and return init profile data
-        print(f"Creating new account ({realm.id}, {player.hash}) "
-              f"for '{username}' in '{realm_name}'...")
-        # account = _create_account(realm.id, hash_, username, rid)
-        account = _create_account(realm.world_id, realm.id, player.hash)
+        logger.info(f"Creating new account ({realm.id}, {player.hash}) "
+                    f"for '{username}' in '{realm_name}'...")
+        account = _create_account(realm.id, player.hash, realm.world_id)
         # todo: sum other accounts?
+        # account.as_xml_data() will handle returning an init profile if account not set yet
         return account.as_xml_data()

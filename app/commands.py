@@ -6,6 +6,8 @@ import click
 from app import app, db
 from app.models import World, ItemGroup, ItemDef, Realm
 
+from loguru import logger
+
 
 @app.cli.command("create-world")
 @click.argument("name", default="valhalla")

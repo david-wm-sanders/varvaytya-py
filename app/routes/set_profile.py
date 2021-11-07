@@ -13,6 +13,8 @@ from app.exc import EnlistdValidationError, DigestNotSupportedError, GetMissingA
                     PlayerNotFound, AccountNotFoundError, RidIncorrectError
 from app.util import get_realm, get_player, get_account, validate_realm_digest
 
+from loguru import logger
+
 
 def _validate_set_request_args() -> tuple[str, str]:
     realm_name, realm_digest = request.args.get("realm"), request.args.get("realm_digest")
@@ -22,41 +24,27 @@ def _validate_set_request_args() -> tuple[str, str]:
 
 @app.route("/set_profile.php", methods=["POST"])
 def set_profile():
-    # todo: logging
-    print(f"set_profile req args: {request.args}")
+    logger.debug(f"set_profile req args: {request.args}")
     # get the validated request args
     try:
         realm_name, realm_digest = _validate_set_request_args()
     except EnlistdValidationError as e:
-        print(f"[set] Error: {e}")
+        logger.error(f"[set] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the realm, failing with issue if realm not found or realm digest doesn't match
     try:
         realm: Realm = get_realm(realm_name, realm_digest)
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
-        # todo: logging!
-        print(f"[set] Error: {e}")
+        logger.error(f"[set] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
-    # try:
-    #     realm = Realm.query.filter_by(name=realm_name).one()
-    # except NoResultFound as e:
-    #     # if realm doesn't exist, fail
-    #     print(f"set profile error: realm '{realm_name}' not in realms table")
-    #     # todo: is this the right form of error response here?
-    #     return """<data ok="0" issue="imaginary realm xd"></data>\n"""
-    #
-    # # if realm digest is bad :eyes:, fail
-    # # todo: ensure this is constant time for security reasons?
-    # if realm_digest != realm.digest:
-    #     print(f"set profile error: bad realm digest '{realm_digest}")
-    #     return """<data ok="0" issue="indigestible"></data>\n"""
-
+    # extract the data from the request form body zeroth item key
     data = next(request.form.items())[0]
     # print(f"{data}")
     # hack: output data here during debugging
     (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
+    # todo: should probably handle failures of XmlET.fromstring better :D
     data_xml = XmlET.fromstring(data)
     player_elements = data_xml.findall("./player")
     # todo: check to make sure we have some data here
@@ -70,39 +58,27 @@ def set_profile():
             player: Player = get_player(playerdc.hash_, playerdc.profile.username,
                                         playerdc.profile.sid, playerdc.rid)
         except (PlayerNotFound, RidIncorrectError) as e:
-            print(f"[set] Error: {e}")
+            logger.error(f"[set] {e}")
             # todo: improve logging here - security alert on incorrect rid sent to set_profile?
             continue
 
         # check hash in db for realm and rid matches for hash
         try:
-            # todo: reimplement using new world account model
-            # account = BasicAccount.query.filter_by(hash=playerdc.hash_, realm_id=realm.id).one()
             account = get_account(realm.id, playerdc.hash_)
         except NoResultFound as e:
             # this account doesn't exist
-            print(f"set profile error: account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
+            logger.error(f"[set] account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
             continue
-
-        # # more validations:
-        # # check rid
-        # if playerdc.rid != account.rid:
-        #     print(f"set profile error: account ({realm.id}, {playerdc.hash_}) evil rid")
-        #     continue
-
 
         # todo: check steam id
         # issue: sid not set at get, sent first time in a set_profile, will be null/None
-        # need to check this and skip if None
         # if playerdc.profile.sid != account.sid:
         #     # print(f"set profile error: account ({realm.id}, {playerdc.hash_}) sid mismatch")
         #     continue
 
         # create a account mapping for bulk_insert_mappings?
-        # we need to specify hash and realm_id because they constitute the primary key
-        # we can omit rid because it should stay constant?
-        # and the rid check should already have identified a problem with this account set spec
-        # we omit username because it was already set by the get and should be immutable
+        # we need to specify (realm_id, hash) because they constitute the primary key
+        # todo: the sid needs to be set for the Player, not Account now :/
         # we must "update" the sid because it is not specified in the original get
         # i.e. this could be the first set for a specific profile
         i = playerdc.person.items
@@ -137,13 +113,14 @@ def set_profile():
                   shots_fired=s.shots_fired, throwables_thrown=s.throwables_thrown,
                   rank_progression=s.rank_progression)
 
-        print(f"{am=}")
+        logger.debug(f"{am=}")
         updated_accounts.append(am)
 
-    print(f"set profile: updating {len(updated_accounts)} players...")
+    logger.info(f"[set] updating {len(updated_accounts)} accounts...")
     db.session.bulk_update_mappings(Account, updated_accounts)
-    print(f"set profile: committing updates...")
+    logger.info(f"[set] committing account updates...")
     db.session.commit()
+    logger.success(f"[set] committed accounts!")
 
     # todo: return proper response here...
     return ""
