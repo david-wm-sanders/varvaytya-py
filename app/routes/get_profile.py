@@ -55,7 +55,6 @@ def get_profile():
     try:
         hash_, username, rid, realm_name, realm_digest = _validate_get_request_args()
     except EnlistdValidationError as e:
-        # todo: logging!
         logger.error(f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
@@ -63,7 +62,6 @@ def get_profile():
     try:
         realm: Realm = get_realm(realm_name, realm_digest)
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
-        # todo: logging!
         logger.error(f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 

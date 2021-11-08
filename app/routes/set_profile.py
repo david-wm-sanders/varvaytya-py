@@ -76,7 +76,7 @@ def set_profile():
         #     # print(f"set profile error: account ({realm.id}, {playerdc.hash_}) sid mismatch")
         #     continue
 
-        # create a account mapping for bulk_insert_mappings?
+        # create a account mapping for bulk_update_mappings
         # we need to specify (realm_id, hash) because they constitute the primary key
         # todo: the sid needs to be set for the Player, not Account now :/
         # we must "update" the sid because it is not specified in the original get
