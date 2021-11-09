@@ -17,4 +17,4 @@ class Realm(db.Model):
     accounts = db.relationship("Account", back_populates="realm", lazy="dynamic")
 
     def __str__(self):
-        return f"'{self.name}' [{self.world_id}:{self.id}]"
+        return f"realm '{self.name}' ({self.id}) [world: {self.world.name}]"

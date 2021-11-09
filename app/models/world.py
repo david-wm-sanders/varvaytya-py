@@ -13,3 +13,6 @@ class World(db.Model):
     # set up sqlalchemy ORM relationships
     realms = db.relationship("Realm", back_populates="world", lazy="dynamic")
     accounts = db.relationship("Account", back_populates="world", lazy="dynamic")
+
+    def __str__(self):
+        return f"world '{self.name}' ({self.id}) [summation_mode: {self.summation_mode}]"

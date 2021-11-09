@@ -67,20 +67,20 @@ def get_profile():
     try:
         logger.debug(f"[get] Locating realm '{realm_name}' and checking digest...")
         realm: Realm = get_realm(realm_name, realm_digest)
-        logger.debug(f"[get] Realm: {realm}")
+        logger.debug(f"[get] Located {realm}")
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
         logger.log(ALERT_LVL.name, f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the player
     try:
-        logger.debug(f"[get] Identifying player '{username}' [{hash_}] and checking papers (rid/sid)...")
+        logger.debug(f"[get] Identifying '{username}' [{hash_}] and checking papers (rid/sid)...")
         # todo: hack! sid not passed and not checked here until it becomes sent
         player: Player = get_player(hash_, username, 0, rid)
-        logger.debug(f"[get] Player: {player}")
+        logger.debug(f"[get] Identified {player}")
     except PlayerNotFound:
         # enlist a new player!
-        logger.info(f"[get] Player '{username}' [{hash_}] not found, enlisting...")
+        logger.info(f"[get] Player '{username}' [{hash_}] not found in db, enlisting...")
         player = Player(hash=hash_, username=username, rid=rid)
         db.session.add(player)
         # if player is newly enlisted no accounts will exist for them,

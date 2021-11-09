@@ -16,4 +16,4 @@ class Player(db.Model):
     accounts = db.relationship("Account", back_populates="player", lazy="dynamic")
 
     def __str__(self):
-        return f"[sid={self.sid}] '{self.username}' [{self.hash}]"
+        return f"player '{self.username}' ({self.hash}) [sid: {self.sid}]"

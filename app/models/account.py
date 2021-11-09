@@ -96,7 +96,7 @@ class Account(db.Model):
 
     def __str__(self):
         # return f"Account(world={self.world.name}, realm={self.realm.name}, username={self.player.username})"
-        return f""
+        return f"account '{self.player.username}' ({self.realm_id}, {self.player_hash}) [world: {self.world.name}]"
 
     def as_xml_data(self):
         # make xml get_profile response from player
