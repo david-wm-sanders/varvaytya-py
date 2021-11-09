@@ -1,8 +1,8 @@
 from datetime import datetime
-import xml.etree.ElementTree as XmlET
+# import xml.etree.ElementTree as XmlET
 
 from flask import request
-from sqlalchemy.exc import NoResultFound
+# from sqlalchemy.exc import NoResultFound
 
 from app import app, db
 from app.models import World, Realm, Player, Account
@@ -65,36 +65,41 @@ def get_profile():
 
     # get the realm, failing with issue if realm not found or realm digest doesn't match
     try:
-        logger.debug(f"Locating realm '{realm_name}'...")
+        logger.debug(f"[get] Locating realm '{realm_name}' and checking digest...")
         realm: Realm = get_realm(realm_name, realm_digest)
-        logger.debug(f"{realm=}")
+        logger.debug(f"[get] Realm: {realm}")
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
         logger.log(ALERT_LVL.name, f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the player
     try:
+        logger.debug(f"[get] Identifying player '{username}' [{hash_}] and checking papers (rid/sid)...")
         # todo: hack! sid not passed and not checked here until it becomes sent
         player: Player = get_player(hash_, username, 0, rid)
+        logger.debug(f"[get] Player: {player}")
     except PlayerNotFound:
         # enlist a new player!
-        logger.info(f"[get] Enlisting '{username}' ({hash_})...")
+        logger.info(f"[get] Player '{username}' [{hash_}] not found, enlisting...")
         player = Player(hash=hash_, username=username, rid=rid)
         db.session.add(player)
         # if player is newly enlisted no accounts will exist for them,
         # thus we quickly create their first account here
         # and return the init profile for it
+        # todo: gonna need to rework init profile handling to fake it if we are sending some world-summed data
         logger.info(f"[get] Creating new account ({realm.id}, {player.hash}) "
                     f"for '{username}' in '{realm_name}'...")
         account = Account(realm_id=realm.id, player_hash=player.hash, world_id=realm.world_id)
         db.session.add(account)
         db.session.commit()
-        return account.as_xml_data()
+        logger.debug(f"[get] Constructing xml for '{username}' in '{realm_name}' ({realm.id}, {hash_})...")
+        xml_data = account.as_xml_data()
+        xml_bytes = bytes(xml_data, "utf-8")
+        logger.success(f"[get] Sending {len(xml_bytes)}B init profile to '{request.remote_addr}'...")
+        return xml_data
     except RidIncorrectError as e:
         # return fail response mit exception issue
-        # todo: log at ALERT level
-        logger.error(f"[get] {e}")
-        # todo: return codes dependent on error?
+        logger.log(ALERT_LVL.name, f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     try:
@@ -108,7 +113,11 @@ def get_profile():
         # todo: implement account.as_dict()
         # print(account.as_dict())
         # todo: change to construct xml from dict? or pass summation info to as_xml_data??
-        return account.as_xml_data()
+        logger.debug(f"[get] Constructing xml for '{username}' in '{realm_name}' ({realm.id}, {hash_})...")
+        xml_data = account.as_xml_data()
+        xml_bytes = bytes(xml_data, "utf-8")
+        logger.success(f"[get] Sending {len(xml_bytes)}B profile-person to '{request.remote_addr}'...")
+        return xml_data
     except AccountNotFoundError:
         # account not found, create and return init profile data
         logger.info(f"[get] Creating new account ({realm.id}, {player.hash}) "
@@ -118,4 +127,8 @@ def get_profile():
         db.session.commit()
         # todo: sum other accounts?
         # account.as_xml_data() will handle returning an init profile if account not set yet
-        return account.as_xml_data()
+        logger.debug(f"[get] Constructing xml for '{username}' in '{realm_name}' ({realm.id}, {hash_})...")
+        xml_data = account.as_xml_data()
+        xml_bytes = bytes(xml_data, "utf-8")
+        logger.success(f"[get] Sending {len(xml_bytes)}B init profile to '{request.remote_addr}'...")
+        return xml_data

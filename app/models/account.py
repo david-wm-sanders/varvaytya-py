@@ -95,7 +95,8 @@ class Account(db.Model):
     # todo: stats monitors
 
     def __str__(self):
-        return f"Account (world={self.world.name}, realm={self.realm.name}, username={self.player.username})"
+        # return f"Account(world={self.world.name}, realm={self.realm.name}, username={self.player.username})"
+        return f""
 
     def as_xml_data(self):
         # make xml get_profile response from player

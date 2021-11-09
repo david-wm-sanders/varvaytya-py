@@ -15,3 +15,6 @@ class Realm(db.Model):
     # set up sqlalchemy ORM relationships
     world = db.relationship("World", back_populates="realms")
     accounts = db.relationship("Account", back_populates="realm", lazy="dynamic")
+
+    def __str__(self):
+        return f"'{self.name}' [{self.world_id}:{self.id}]"

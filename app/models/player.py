@@ -14,3 +14,6 @@ class Player(db.Model):
 
     # set up sqlalchemy ORM relationships
     accounts = db.relationship("Account", back_populates="player", lazy="dynamic")
+
+    def __str__(self):
+        return f"[sid={self.sid}] '{self.username}' [{self.hash}]"
