@@ -6,7 +6,7 @@ from sqlalchemy.exc import NoResultFound
 
 from app import app, db
 from app.models import World, Realm, Player, Account
-from app.exc import EnlistdValidationError, DigestNotSupportedError, GetMissingArgError, \
+from app.exc import VarvaytyaValidationError, DigestNotSupportedError, GetMissingArgError, \
                     HashNotIntError, RealmNotFoundError, RealmDigestIncorrectError, \
                     PlayerNotFound, AccountNotFoundError, RidIncorrectError
 from app.util import validate_username, validate_rid, validate_realm_digest, \
@@ -59,7 +59,7 @@ def get_profile():
     try:
         logger.debug("[get] Validating request args...")
         hash_, username, rid, realm_name, realm_digest = _validate_get_request_args()
-    except EnlistdValidationError as e:
+    except VarvaytyaValidationError as e:
         logger.log(ALERT_LVL.name, f"[get] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 

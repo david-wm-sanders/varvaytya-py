@@ -1,62 +1,62 @@
-class EnlistdException(Exception):
+class VarvaytyaException(Exception):
     issue = ""
 
 
-class EnlistdValidationError(EnlistdException):
+class VarvaytyaValidationError(VarvaytyaException):
     issue = "validation failed"
 
 
-class DigestNotSupportedError(EnlistdValidationError):
+class DigestNotSupportedError(VarvaytyaValidationError):
     issue = "rid auth only"
 
 
-class GetMissingArgError(EnlistdValidationError):
+class GetMissingArgError(VarvaytyaValidationError):
     issue = "missing argument(s)"
 
 
-class HashNotIntError(EnlistdValidationError):
+class HashNotIntError(VarvaytyaValidationError):
     issue = "hash not int"
 
 
-class UsernameTooLongError(EnlistdValidationError):
+class UsernameTooLongError(VarvaytyaValidationError):
     issue = "username too long"
 
 
-class UsernameFormatError(EnlistdValidationError):
+class UsernameFormatError(VarvaytyaValidationError):
     issue = "bad username format"
 
 
-class RidLengthError(EnlistdValidationError):
+class RidLengthError(VarvaytyaValidationError):
     issue = "bad rid length"
 
 
-class RidNotHexError(EnlistdValidationError):
+class RidNotHexError(VarvaytyaValidationError):
     issue = "rid not hex"
 
 
-class RealmDigestLengthError(EnlistdValidationError):
+class RealmDigestLengthError(VarvaytyaValidationError):
     issue = "bad realm digest length"
 
 
-class RealmDigestNotHexError(EnlistdValidationError):
+class RealmDigestNotHexError(VarvaytyaValidationError):
     issue = "realm digest not hex"
 
 
-class RealmNotFoundError(EnlistdException):
+class RealmNotFoundError(VarvaytyaException):
     issue = "imaginary realm"
 
 
-class RealmDigestIncorrectError(EnlistdException):
+class RealmDigestIncorrectError(VarvaytyaException):
     issue = "realm digest incorrect"
 
 
-class PlayerNotFound(EnlistdException):
+class PlayerNotFound(VarvaytyaException):
     issue = "player not found"
 
 
-class AccountNotFoundError(EnlistdException):
+class AccountNotFoundError(VarvaytyaException):
     issue = "account not found"
 
 
-class RidIncorrectError(EnlistdException):
+class RidIncorrectError(VarvaytyaException):
     issue = "rid incorrect"

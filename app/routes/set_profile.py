@@ -8,7 +8,7 @@ from flask import request, abort
 from app import app, db
 from app.models import Realm, Player, Account
 from app.dc import PlayerDc
-from app.exc import EnlistdValidationError, DigestNotSupportedError, GetMissingArgError, \
+from app.exc import VarvaytyaValidationError, DigestNotSupportedError, GetMissingArgError, \
                     HashNotIntError, RealmNotFoundError, RealmDigestIncorrectError, \
                     PlayerNotFound, AccountNotFoundError, RidIncorrectError
 from app.util import get_realm, get_player, get_account, validate_realm_digest
@@ -29,7 +29,7 @@ def set_profile():
     # get the validated request args
     try:
         realm_name, realm_digest = _validate_set_request_args()
-    except EnlistdValidationError as e:
+    except VarvaytyaValidationError as e:
         logger.error(f"[set] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
