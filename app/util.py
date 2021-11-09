@@ -10,6 +10,9 @@ from app.models import Realm, Player, Account
 from loguru import logger
 
 
+ALERT_LVL = logger.level("ALERT", no=35, color="<yellow>", icon="💢")
+
+
 def validate_username(username: str):
     if len(username) > 32:
         raise UsernameTooLongError(f"Username '{username}' length > 32 characters")

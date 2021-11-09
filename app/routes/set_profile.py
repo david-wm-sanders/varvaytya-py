@@ -24,7 +24,8 @@ def _validate_set_request_args() -> tuple[str, str]:
 
 @app.route("/set_profile.php", methods=["POST"])
 def set_profile():
-    logger.debug(f"set_profile req args: {request.args}")
+    _request_args = ",".join(f"{k}={v}" for k, v in request.args.items())
+    logger.debug(f"[set] request args: {_request_args}")
     # get the validated request args
     try:
         realm_name, realm_digest = _validate_set_request_args()
@@ -67,7 +68,7 @@ def set_profile():
             account = get_account(realm.id, playerdc.hash_)
         except NoResultFound as e:
             # this account doesn't exist
-            logger.error(f"[set] account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
+            logger.error(f"[set] Account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
             continue
 
         # todo: check steam id
@@ -116,11 +117,10 @@ def set_profile():
         logger.debug(f"{am=}")
         updated_accounts.append(am)
 
-    logger.info(f"[set] updating {len(updated_accounts)} accounts...")
+    logger.info(f"[set] Updating {len(updated_accounts)} accounts...")
     db.session.bulk_update_mappings(Account, updated_accounts)
-    logger.info(f"[set] committing account updates...")
     db.session.commit()
-    logger.success(f"[set] committed accounts!")
+    logger.success(f"[set] Committed account updates!")
 
     # todo: return proper response here...
     return ""
