@@ -1,6 +1,8 @@
 from datetime import datetime
 from xml.etree import ElementTree as XmlET
 
+from sqlalchemy import inspect
+
 from app import db
 
 
@@ -95,8 +97,10 @@ class Account(db.Model):
     # todo: stats monitors
 
     def __str__(self):
-        # return f"Account(world={self.world.name}, realm={self.realm.name}, username={self.player.username})"
         return f"account '{self.player.username}' ({self.realm_id}, {self.player_hash}) [world: {self.world.name}]"
+
+    def as_dict(self):
+        return {col.key: getattr(self, col.key) for col in inspect(self).mapper.column_attrs}
 
     def as_xml_data(self):
         # make xml get_profile response from player

@@ -1,4 +1,6 @@
 import re
+from xml.etree import ElementTree as XmlET
+
 from sqlalchemy.exc import NoResultFound
 
 from app import db
@@ -75,3 +77,10 @@ def get_account(realm_id: int, player_hash: int) -> Account:
         return account
     else:
         raise AccountNotFoundError(f"Account ({realm_id}, {player_hash}) not found")
+
+
+def construct_xml_from_account_dict(d: dict):
+    # make xml get_profile response from account dict
+    # make data element
+    data_element = XmlET.Element("data", {"ok": "1"})
+    # todo: write

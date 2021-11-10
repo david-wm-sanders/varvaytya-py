@@ -85,6 +85,7 @@ def get_profile():
         db.session.add(account)
         db.session.commit()
         logger.debug(f"[get] Constructing xml for '{username}' in '{realm_name}' ({realm.id}, {hash_})...")
+        print(f"account dict: {account.as_dict()}")
         xml_data = account.as_xml_data()
         xml_bytes = bytes(xml_data, "utf-8")
         logger.success(f"[get] Sending xml ({len(xml_bytes)}B) to '{request.remote_addr}'...")
@@ -107,6 +108,7 @@ def get_profile():
         # print(account.as_dict())
         # todo: change to construct xml from dict? or pass summation info to as_xml_data??
         logger.debug(f"[get] Constructing xml for '{username}' in '{realm_name}' ({realm.id}, {hash_})...")
+        print(f"account dict: {account.as_dict()}")
         xml_data = account.as_xml_data()
         xml_bytes = bytes(xml_data, "utf-8")
         logger.success(f"[get] Sending xml ({len(xml_bytes)}B) to '{request.remote_addr}'...")
@@ -121,6 +123,7 @@ def get_profile():
         # todo: sum other accounts?
         # account.as_xml_data() will handle returning an init profile if account not set yet
         logger.debug(f"[get] Constructing xml for '{username}' in '{realm_name}' ({realm.id}, {hash_})...")
+        print(f"account dict: {account.as_dict()}")
         xml_data = account.as_xml_data()
         xml_bytes = bytes(xml_data, "utf-8")
         logger.success(f"[get] Sending xml ({len(xml_bytes)}B) to '{request.remote_addr}'...")
