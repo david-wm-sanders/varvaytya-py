@@ -12,6 +12,7 @@ from app.exc import VarvaytyaValidationError, DigestNotSupportedError, GetMissin
                     HashNotIntError, RealmNotFoundError, RealmDigestIncorrectError, \
                     PlayerNotFound, AccountNotFoundError, RidIncorrectError
 from app.util import get_realm, get_player, get_account, validate_realm_digest
+from app.util import ALERT_LVL
 
 from loguru import logger
 
@@ -24,32 +25,32 @@ def _validate_set_request_args() -> tuple[str, str]:
 
 @app.route("/set_profile.php", methods=["POST"])
 def set_profile():
-    _request_args = ",".join(f"{k}={v}" for k, v in request.args.items())
+    logger.info(f"[set] Processing request from '{request.remote_addr}'...")
+    _request_args = ", ".join(f"{k}={v}" for k, v in request.args.items())
     logger.debug(f"[set] request args: {_request_args}")
     # get the validated request args
     try:
         realm_name, realm_digest = _validate_set_request_args()
     except VarvaytyaValidationError as e:
-        logger.error(f"[set] {e}")
+        logger.log(ALERT_LVL.name, f"[set] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # get the realm, failing with issue if realm not found or realm digest doesn't match
     try:
         realm: Realm = get_realm(realm_name, realm_digest)
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
-        logger.error(f"[set] {e}")
+        logger.log(ALERT_LVL.name, f"[set] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
 
     # extract the data from the request form body zeroth item key
     data = next(request.form.items())[0]
-    # print(f"{data}")
     # hack: output data here during debugging
+    # todo: remove this xd
     (pathlib.Path(__file__).parent / "data.xml").write_text(data, encoding="utf-8")
     # todo: should probably handle failures of XmlET.fromstring better :D
     data_xml = XmlET.fromstring(data)
     player_elements = data_xml.findall("./player")
     # todo: check to make sure we have some data here
-    # print(f"{players=}")
     updated_accounts = []
     for player_elem in player_elements:
         playerdc = PlayerDc.from_element(player_elem)
@@ -59,16 +60,16 @@ def set_profile():
             player: Player = get_player(playerdc.hash_, playerdc.profile.username,
                                         playerdc.profile.sid, playerdc.rid)
         except (PlayerNotFound, RidIncorrectError) as e:
-            logger.error(f"[set] {e}")
-            # todo: improve logging here - security alert on incorrect rid sent to set_profile?
+            logger.log(ALERT_LVL.name, f"[set] {e}")
             continue
 
         # check hash in db for realm and rid matches for hash
         try:
             account = get_account(realm.id, playerdc.hash_)
-        except NoResultFound as e:
+        except AccountNotFoundError as e:
             # this account doesn't exist
-            logger.error(f"[set] Account ({realm.id}, {playerdc.hash_}) not found, won't update, skipping...")
+            logger.log(ALERT_LVL.name, f"[set] Account ({realm.id}, {playerdc.hash_}) "
+                                       f"not found, won't update, skipping...")
             continue
 
         # todo: check steam id
