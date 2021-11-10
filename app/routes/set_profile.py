@@ -30,6 +30,7 @@ def set_profile():
     logger.debug(f"[set] request args: {_request_args}")
     # get the validated request args
     try:
+        logger.info("[set] Validating request args...")
         realm_name, realm_digest = _validate_set_request_args()
     except VarvaytyaValidationError as e:
         logger.log(ALERT_LVL.name, f"[set] {e}")
@@ -37,7 +38,9 @@ def set_profile():
 
     # get the realm, failing with issue if realm not found or realm digest doesn't match
     try:
+        logger.debug(f"[set] Locating realm '{realm_name}' and checking digest...")
         realm: Realm = get_realm(realm_name, realm_digest)
+        logger.info(f"[set] Located {realm}")
     except (RealmNotFoundError, RealmDigestIncorrectError) as e:
         logger.log(ALERT_LVL.name, f"[set] {e}")
         return f"""<data ok="0" issue="{e.issue}"></data>\n"""
@@ -115,7 +118,7 @@ def set_profile():
                   shots_fired=s.shots_fired, throwables_thrown=s.throwables_thrown,
                   rank_progression=s.rank_progression)
 
-        logger.debug(f"{am=}")
+        # logger.debug(f"{am=}")
         updated_accounts.append(am)
 
     logger.info(f"[set] Updating {len(updated_accounts)} accounts...")

@@ -42,14 +42,6 @@ def _validate_get_request_args() -> tuple[int, str, str, str, str]:
     return hash_int, username, rid, realm_name, realm_digest
 
 
-# def _create_account(realm_id: int, player_hash: int, world_id: int):
-#     account = Account(realm_id=realm_id, player_hash=player_hash, world_id=world_id)
-#     db.session.add(account)
-#     # remove commit, the caller is expected to commit (with or without other additions or changes)
-#     # db.session.commit()
-#     return account
-
-
 @app.route("/get_profile.php")
 def get_profile():
     logger.info(f"[get] Processing request from '{request.remote_addr}'...")
